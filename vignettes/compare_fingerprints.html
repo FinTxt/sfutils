@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Jasper Ginn" />
+
+<meta name="date" content="2018-05-17" />
+
+<title>Use a variety of methods to compare fingerprints</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Use a variety of methods to compare fingerprints</h1>
+<h4 class="author"><em>Jasper Ginn</em></h4>
+<h4 class="date"><em>2018-05-17</em></h4>
+
+
+
+<p><code>FinTxtUtils()</code> contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clean wd</span>
+<span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
+<span class="co"># Load data</span>
+<span class="kw">data</span>(<span class="st">&quot;fps_train&quot;</span>)
+<span class="kw">data</span>(<span class="st">&quot;fps_test&quot;</span>)
+<span class="co"># To list</span>
+fps_train &lt;-<span class="st"> </span><span class="kw">as.list</span>(fps_train)
+fps_test &lt;-<span class="st"> </span><span class="kw">as.list</span>(fps_test)
+
+<span class="co"># Unpack</span>
+train_lbls_b &lt;-<span class="st"> </span>fps_train<span class="op">$</span>label_binomial
+train_lbls_m &lt;-<span class="st"> </span>fps_train<span class="op">$</span>label_multinomial
+fps_train &lt;-<span class="st"> </span>fps_train<span class="op">$</span>fingerprints
+
+test_lbls_b &lt;-<span class="st"> </span>fps_test<span class="op">$</span>label_binomial
+test_lbls_m &lt;-<span class="st"> </span>fps_test<span class="op">$</span>label_multinomial
+fps_test &lt;-<span class="st"> </span>fps_test<span class="op">$</span>fingerprints</code></pre></div>
+<p>We can turn a list of Fingerprint objects to a Collection:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Turn fingerprints into Collection</span>
+col_train &lt;-<span class="st"> </span><span class="kw">Collection</span>(fps_train)
+col_test &lt;-<span class="st"> </span><span class="kw">Collection</span>(fps_test)</code></pre></div>
+<p>We can now make a filter to compare each article to. This is one way to classify the articles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's see if we can pick out the oil &amp; gas companies</span>
+<span class="co"># Create a filter. Currently I've not implemented that either can be empty.</span>
+filt &lt;-<span class="st"> </span><span class="kw">Filter</span>(<span class="dt">name =</span> <span class="st">&quot;crude&quot;</span>,
+               <span class="dt">positive =</span> <span class="kw">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;gas&quot;</span>, <span class="st">&quot;saudi-arabia&quot;</span>, <span class="st">&quot;middle east&quot;</span>,
+                            <span class="st">&quot;oil platform&quot;</span>, <span class="st">&quot;oil reserves&quot;</span>, <span class="st">&quot;fuel&quot;</span>, <span class="st">&quot;gasoline&quot;</span>, <span class="st">&quot;crude oil&quot;</span>,
+                            <span class="st">&quot;oil pipeline&quot;</span>, <span class="st">&quot;petroleum&quot;</span>, 
+                            <span class="st">&quot;opec&quot;</span>, <span class="st">&quot;oil well&quot;</span>, <span class="st">&quot;fracking&quot;</span>, <span class="st">&quot;oil field&quot;</span>, <span class="st">&quot;energy&quot;</span>))
+<span class="co"># We can compare the fingerprint plot of the filter to the intensity plot of articles about crude oil</span>
+crude_index &lt;-<span class="st"> </span><span class="kw">which</span>(train_lbls_b <span class="op">==</span><span class="st"> &quot;crude&quot;</span>)
+crude_intense &lt;-<span class="st"> </span><span class="kw">Collection</span>(fps_train[crude_index])
+<span class="kw">plot</span>(crude_intense)
+<span class="kw">plot</span>(filt)</code></pre></div>
+<p>We can use the <code>do_compare()</code> function to compare fingerprints in R:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare two fingerprints</span>
+methods &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cosine&quot;</span>, <span class="st">&quot;jaccard&quot;</span>, <span class="st">&quot;dice&quot;</span>, <span class="st">&quot;gilbertwells&quot;</span>,
+  <span class="st">&quot;dennis&quot;</span>, <span class="st">&quot;sorgenfrei&quot;</span>, <span class="st">&quot;lancewilliams&quot;</span>, <span class="st">&quot;euclid&quot;</span>, <span class="st">&quot;hamming&quot;</span>)
+type &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;similarity&quot;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&quot;distance&quot;</span>, <span class="dv">3</span>))
+<span class="co"># Compute for all methods</span>
+mm &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map2_df</span>(methods, type, <span class="cf">function</span>(x, y) {
+  <span class="kw">data_frame</span>(
+    <span class="st">&quot;metric&quot;</span> =<span class="st"> </span>x,
+    <span class="st">&quot;type&quot;</span> =<span class="st"> </span>y,
+    <span class="st">&quot;value&quot;</span> =<span class="st"> </span><span class="kw">round</span>(<span class="kw">do_compare</span>(fps_train[[<span class="dv">1</span>]], fps_train[[<span class="dv">2</span>]], <span class="dt">method =</span> x)[<span class="dv">1</span>,<span class="dv">1</span>],
+                    <span class="dt">digits =</span> <span class="dv">3</span>)
+  )
+})
+
+knitr<span class="op">::</span><span class="kw">kable</span>(mm)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">metric</th>
+<th align="left">type</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">cosine</td>
+<td align="left">similarity</td>
+<td align="right">0.333</td>
+</tr>
+<tr class="even">
+<td align="left">jaccard</td>
+<td align="left">similarity</td>
+<td align="right">0.200</td>
+</tr>
+<tr class="odd">
+<td align="left">dice</td>
+<td align="left">similarity</td>
+<td align="right">0.333</td>
+</tr>
+<tr class="even">
+<td align="left">gilbertwells</td>
+<td align="left">similarity</td>
+<td align="right">1.714</td>
+</tr>
+<tr class="odd">
+<td align="left">dennis</td>
+<td align="left">similarity</td>
+<td align="right">34.979</td>
+</tr>
+<tr class="even">
+<td align="left">sorgenfrei</td>
+<td align="left">similarity</td>
+<td align="right">0.111</td>
+</tr>
+<tr class="odd">
+<td align="left">lancewilliams</td>
+<td align="left">distance</td>
+<td align="right">0.667</td>
+</tr>
+<tr class="even">
+<td align="left">euclid</td>
+<td align="left">distance</td>
+<td align="right">36.222</td>
+</tr>
+<tr class="odd">
+<td align="left">hamming</td>
+<td align="left">distance</td>
+<td align="right">1312.000</td>
+</tr>
+</tbody>
+</table>
+<p>It is possible to compare a fingerprint to an entire collection by transforming the collection into a sparse binary matrix. This we can achieve using the canonical <code>as.matrix()</code> command in R:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Turn test and train into a sparse binary matrix</span>
+mtrain &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(col_train)
+mtest &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(col_test)
+
+mtrain[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]
+<span class="co">#&gt; 5 x 8 sparse Matrix of class &quot;dgCMatrix&quot;</span>
+<span class="co">#&gt;                                      p1 p2 p3 p4 p5 p6 p7 p8</span>
+<span class="co">#&gt; c81bc09a-b017-4d26-885d-c4d8b7b1193c  .  .  .  1  .  .  1  1</span>
+<span class="co">#&gt; 117ad6db-f5a2-44f3-9409-10b5b3f81a40  .  .  .  .  .  .  .  1</span>
+<span class="co">#&gt; e91b1566-ff53-486a-b2b8-715056897e69  .  .  .  .  .  .  1  1</span>
+<span class="co">#&gt; 61791d14-c943-4321-8fe6-c9c51a667c85  .  .  .  .  .  .  .  1</span>
+<span class="co">#&gt; fc8c4e1c-5ee3-46c8-958a-1cc0f2660cb2  .  .  .  .  .  .  .  1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare documents to another fingerprinted document</span>
+comp &lt;-<span class="st"> </span><span class="kw">do_compare</span>(mtrain, fps_train[[<span class="dv">1</span>]], <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">as.data.frame</span>(comp[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,]))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">comp[1:10, ]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>c81bc09a-b017-4d26-885d-c4d8b7b1193c</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="even">
+<td>117ad6db-f5a2-44f3-9409-10b5b3f81a40</td>
+<td align="right">0.3333333</td>
+</tr>
+<tr class="odd">
+<td>e91b1566-ff53-486a-b2b8-715056897e69</td>
+<td align="right">0.4420732</td>
+</tr>
+<tr class="even">
+<td>61791d14-c943-4321-8fe6-c9c51a667c85</td>
+<td align="right">0.3932927</td>
+</tr>
+<tr class="odd">
+<td>fc8c4e1c-5ee3-46c8-958a-1cc0f2660cb2</td>
+<td align="right">0.5060976</td>
+</tr>
+<tr class="even">
+<td>ffd84656-5481-4f76-ba41-06e4f2f23a6f</td>
+<td align="right">0.3363821</td>
+</tr>
+<tr class="odd">
+<td>20b64969-36ba-4ce9-a569-06a4c740e92b</td>
+<td align="right">0.4400407</td>
+</tr>
+<tr class="even">
+<td>f9460608-32be-4941-aad0-8ad4338d13a9</td>
+<td align="right">0.4359756</td>
+</tr>
+<tr class="odd">
+<td>d4213cb3-35ee-4556-ad23-02604b371b8a</td>
+<td align="right">0.3953252</td>
+</tr>
+<tr class="even">
+<td>9aacb922-c008-47d6-b339-861ef62a950e</td>
+<td align="right">0.4654472</td>
+</tr>
+</tbody>
+</table>
+<p>For example, if we’d like to display the two most similar articles to some document, we can do this as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Quick convenience function</span>
+get_most_similar_articles &lt;-<span class="st"> </span><span class="cf">function</span>(doc) {
+  <span class="co"># Compare documents to another fingerprinted document</span>
+  comp &lt;-<span class="st"> </span><span class="kw">do_compare</span>(mtrain, doc, <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>)
+  <span class="co"># To data frame</span>
+  comp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="st">&quot;sim&quot;</span> =<span class="st"> </span>comp[,<span class="dv">1</span>],
+                        <span class="st">&quot;uuid&quot;</span> =<span class="st"> </span><span class="kw">row.names</span>(comp)) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sim)) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">slice</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">select</span>(uuid) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">pull</span>()
+  <span class="co"># Get text</span>
+  texts &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(fps_train, <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="kw">uuid</span>(x) <span class="op">%in%</span><span class="st"> </span>comp_df) <span class="kw">text</span>(x))
+  <span class="co"># Remove null</span>
+  texts &lt;-<span class="st"> </span>texts[<span class="kw">sapply</span>(texts, <span class="cf">function</span>(x) <span class="op">!</span><span class="kw">is.null</span>(x))]
+  <span class="co"># Cat</span>
+  prnt &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;INPUT DOC: </span><span class="ch">\n\n</span><span class="st">&quot;</span>, 
+                 <span class="kw">text</span>(doc), <span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>, 
+                 <span class="kw">paste0</span>(<span class="kw">paste0</span>(<span class="st">&quot;RECOMMENDATION: </span><span class="ch">\n\n</span><span class="st">&quot;</span>,
+                               <span class="kw">unlist</span>(texts)), <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>))
+  <span class="kw">cat</span>(prnt)
+}
+<span class="co"># Test function</span>
+<span class="kw">get_most_similar_articles</span>(fps_train[[<span class="dv">45</span>]])
+<span class="co">#&gt; INPUT DOC: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Lac Minerals Ltd and &lt;Cambior Inc&gt; said</span>
+<span class="co">#&gt; they completed a second hole at their jointly owned Doyon mine</span>
+<span class="co">#&gt; in Quebec, which showed two significant gold intersections.</span>
+<span class="co">#&gt;     One intersection graded 0.33 ounce gold a short ton over 44</span>
+<span class="co">#&gt; feet at depth of 1,411 feet, while the other graded 0.22 ounce</span>
+<span class="co">#&gt; gold a ton over 23 feet at 2,064 feet, the companies said. The</span>
+<span class="co">#&gt; hole is 460 feet east of the previously reported first hole.</span>
+<span class="co">#&gt;     They said they were now drilling another hole 460 feet to</span>
+<span class="co">#&gt; the west of the first drill hole and expected to report results</span>
+<span class="co">#&gt; in late March or early April.</span>
+<span class="co">#&gt;  Reuter</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; RECOMMENDATION: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; D'Or Val Mines Ltd said a recent</span>
+<span class="co">#&gt; drill hole from the surfrace has intersected high-grade ore in</span>
+<span class="co">#&gt; a downdip extension of the Discovery Vein in its D'Or Val Mine</span>
+<span class="co">#&gt; in northern Quebec.</span>
+<span class="co">#&gt;     The company said 42.3 feet of the hole graded 0.92 ounce</span>
+<span class="co">#&gt; per short ton of gold, including a 17.5 foot section grading</span>
+<span class="co">#&gt; 2.17 ounces.</span>
+<span class="co">#&gt;     It said the zone is just below the projection of the</span>
+<span class="co">#&gt; seventh level of the mine about 1,450 feet below the surface</span>
+<span class="co">#&gt; and 820 feet west of the shaft.</span>
+<span class="co">#&gt;     D'Or Val said this find and other recent ones will make</span>
+<span class="co">#&gt; substantial contributions to the mine's ore reserves and grade.</span>
+<span class="co">#&gt;  Reuter</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; RECOMMENDATION: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Golden North</span>
+<span class="co">#&gt; Resource Corp said said surface and underground drilling on the</span>
+<span class="co">#&gt; Canty project and Mascot fraction at its Nickel Plate Mountain</span>
+<span class="co">#&gt; property in British Columbia returned encouraging gold assays.</span>
+<span class="co">#&gt;     It said one Canty hole encountered several mineralized</span>
+<span class="co">#&gt; intervals including 11 feet grading 0.342 ounce gold a short</span>
+<span class="co">#&gt; ton from 86 to 97 feet and 17 feet grading 0.756 ounce gold ton</span>
+<span class="co">#&gt; from 170.5 feet to 187.5 feet.</span>
+<span class="co">#&gt;     A Mascot fraction hole returned assays including 0.190</span>
+<span class="co">#&gt; ounce gold ton over seven feet between 57 and 64 feet, it said.</span>
+<span class="co">#&gt;  Reuter</span>
+<span class="co">#&gt; </span></code></pre></div>
+<p>We can use several methods to perform classification of the documents. Cortical claims that a cosine similarity of 0.3 between two documents or a document and a filter is sufficient to classify two texts. This is a transparent and computationally efficient way to classify documents since the cosine similarity metric is easy to understand. It does, however, take some tinkering to get the filter ‘right’. One could also create multiple filters and compare the documents against those to improve the accuracy of predictions.</p>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

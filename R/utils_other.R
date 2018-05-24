@@ -1,6 +1,11 @@
 # --------------------------------------------------------------------------
 #
-# This file contains several methods that can be used to compare fingerprints
+# Generic utilities (helper) functions used by the package. These are sub-
+# divided into the following categories:
+#
+# DISTANCE & SIMILARITY METHODS
+#
+# This section contains several methods that can be used to compare fingerprints
 # or, for that matter, any two vectors that need to be compared based on
 # bitwise operations.
 #
@@ -11,6 +16,8 @@
 # exported). Instead, they are called using the do_compare() function.
 #
 # --------------------------------------------------------------------------
+
+# DISTANCE & SIMILARITY METHODS ----
 
 #' Cosine similarity metric
 #'

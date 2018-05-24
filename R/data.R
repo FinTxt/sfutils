@@ -20,10 +20,10 @@
 #'   \item{type}{type of the document that was fingerprinted}
 #' }
 #' @source \url{https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}
-#' @rdname FinTxtUtils-data
+#' @rdname sfutils-data
 "fps_train"
 
-#' @rdname FinTxtUtils-data
+#' @rdname sfutils-data
 "fps_test"
 
 #' Small sample of business descriptions of six companies
@@ -38,5 +38,5 @@
 #'   \item{url}{url to the company page on Thompson Reuters website}
 #' }
 #' @source \url{https://www.reuters.com/markets/stocks}
-#' @rdname FinTxtUtils-data
+#' @rdname sfutils-data
 "company_descriptions"

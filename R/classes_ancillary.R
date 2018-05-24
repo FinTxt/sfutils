@@ -19,12 +19,14 @@
 #' @name Intensity-class
 
 .Intensity <- setClass(
+
   # Name
   "Intensity",
   # data
   slots = c(
     intensity = "numeric"
   )
+
 )
 
 #' @slot entries list of documents, terms or expressions
@@ -32,6 +34,7 @@
 #' @name Collection-class
 
 .Collection <- setClass(
+
   # Name
   "Collection",
   # data
@@ -39,6 +42,7 @@
     entries = "list"
   ),
   contains = "Intensity"
+
 )
 
 
@@ -80,6 +84,7 @@ Collection <- function(entry_list) {
   prop_class <- unlist(lapply(entry_list, function(x) {
     any(c("Term", "Expression", "Document") %in% is(x))
   }))
+
   # If not all, then error
   if(!all(prop_class)) {
     stop("All entries must belong to either the 'Term', 'Document' or 'Expression' class.")
@@ -107,18 +112,27 @@ Intensity <- function(fp_list) {
 
   # Calculate intensity
   conv <- function(positions, fingerprints, counter) {
+
     # Take counter
     fp_now <- fingerprints[[counter]]
+
     # Add to positions
     positions[fp_now] <- positions[fp_now] + 1
+
     # If counter == length fingerprints, return
     if(counter == length(fingerprints)) {
+
       # Take total number of positions where != 0
       n <- sum(which(positions > 0))
+
       return((positions / n) * 100)
+
     } else # Else, continue
+
       conv(positions, fingerprints, counter + 1)
+
   }
+
   # Calculate
   pos_filled <- conv(rep(0, 16384),
                      lapply(fp_list, function(x) fingerprint(x)),

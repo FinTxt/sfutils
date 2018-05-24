@@ -1,0 +1,138 @@
+---
+title: "Use a variety of methods to compare fingerprints"
+author: "Jasper Ginn"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`FinTxtUtils()` contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.
+
+```{r, eval=TRUE, echo=FALSE}
+suppressPackageStartupMessages(library(FinTxtUtils))
+suppressPackageStartupMessages(library(dplyr))
+```
+
+```{r, message=FALSE, eval=TRUE}
+# Clean wd
+rm(list=ls())
+# Load data
+data("fps_train")
+data("fps_test")
+# To list
+fps_train <- as.list(fps_train)
+fps_test <- as.list(fps_test)
+
+# Unpack
+train_lbls_b <- fps_train$label_binomial
+train_lbls_m <- fps_train$label_multinomial
+fps_train <- fps_train$fingerprints
+
+test_lbls_b <- fps_test$label_binomial
+test_lbls_m <- fps_test$label_multinomial
+fps_test <- fps_test$fingerprints
+```
+
+We can turn a list of Fingerprint objects to a Collection:
+
+```{r}
+# Turn fingerprints into Collection
+col_train <- Collection(fps_train)
+col_test <- Collection(fps_test)
+```
+
+We can now make a filter to compare each article to. This is one way to classify the articles.
+
+```{r, eval=FALSE, fig.height=4, fig.width=4, fig.show='hold'}
+# Let's see if we can pick out the oil & gas companies
+# Create a filter. Currently I've not implemented that either can be empty.
+filt <- Filter(name = "crude",
+               positive = c("oil", "gas", "saudi-arabia", "middle east",
+                            "oil platform", "oil reserves", "fuel", "gasoline", "crude oil",
+                            "oil pipeline", "petroleum", 
+                            "opec", "oil well", "fracking", "oil field", "energy"))
+# We can compare the fingerprint plot of the filter to the intensity plot of articles about crude oil
+crude_index <- which(train_lbls_b == "crude")
+crude_intense <- Collection(fps_train[crude_index])
+plot(crude_intense)
+plot(filt)
+```
+
+We can use the `do_compare()` function to compare fingerprints in R:
+
+```{r}
+# Compare two fingerprints
+methods <- c("cosine", "jaccard", "dice", "gilbertwells",
+  "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming")
+type <- c(rep("similarity", 6), rep("distance", 3))
+# Compute for all methods
+mm <- purrr::map2_df(methods, type, function(x, y) {
+  data_frame(
+    "metric" = x,
+    "type" = y,
+    "value" = round(do_compare(fps_train[[1]], fps_train[[2]], method = x)[1,1],
+                    digits = 3)
+  )
+})
+
+knitr::kable(mm)
+
+```
+
+It is possible to compare a fingerprint to an entire collection by transforming the collection into a sparse binary matrix. This we can achieve using the canonical `as.matrix()` command in R:
+
+```{r}
+# Turn test and train into a sparse binary matrix
+mtrain <- as.matrix(col_train)
+mtest <- as.matrix(col_test)
+
+mtrain[1:5, 1:8]
+```
+
+```{r}
+# Compare documents to another fingerprinted document
+comp <- do_compare(mtrain, fps_train[[1]], method = "cosine")
+
+knitr::kable(as.data.frame(comp[1:10,]))
+```
+
+For example, if we'd like to display the two most similar articles to some document, we can do this as follows:
+
+```{r}
+# Quick convenience function
+get_most_similar_articles <- function(doc) {
+  # Compare documents to another fingerprinted document
+  comp <- do_compare(mtrain, doc, method = "cosine")
+  # To data frame
+  comp_df <- data_frame("sim" = comp[,1],
+                        "uuid" = row.names(comp)) %>%
+                arrange(desc(sim)) %>%
+                slice(2:3) %>%
+                select(uuid) %>%
+                pull()
+  # Get text
+  texts <- purrr::map(fps_train, function(x) if(uuid(x) %in% comp_df) text(x))
+  # Remove null
+  texts <- texts[sapply(texts, function(x) !is.null(x))]
+  # Cat
+  prnt <- paste0("INPUT DOC: \n\n", 
+                 text(doc), "\n\n", 
+                 paste0(paste0("RECOMMENDATION: \n\n",
+                               unlist(texts)), collapse = "\n\n"))
+  cat(prnt)
+}
+# Test function
+get_most_similar_articles(fps_train[[45]])
+```
+
+We can use several methods to perform classification of the documents. Cortical claims that a cosine similarity of 0.3 between two documents or a document and a filter is sufficient to classify two texts. This is a transparent and computationally efficient way to classify documents since the cosine similarity metric is easy to understand. It does, however, take some tinkering to get the filter 'right'. One could also create multiple filters and compare the documents against those to improve the accuracy of predictions.

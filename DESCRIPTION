@@ -11,24 +11,15 @@ Description:
 Depends:
     Matrix
 Imports:
-    rlist,
     utils,
     methods,
-    dplyr,
-    purrr,
     reticulate,
-    rjson,
-    tidyr,
+    jsonlite
     assertthat,
     ggplot2,
     uuid
 Suggests:
-    magrittr,
     testthat,
-    FactoMineR,
-    glmnet,
-    caret,
-    e1071,
     knitr,
     rmarkdown
 URL:

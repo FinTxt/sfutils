@@ -1,2 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^dev$
+^plots$
+^docs$
+^\_pkgdown\.yml$
+^LICENSE\.md$
+^\inst^\__pycache__
+^data-raw$
+^\.travis\.yml$

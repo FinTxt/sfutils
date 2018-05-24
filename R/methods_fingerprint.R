@@ -42,8 +42,6 @@ setMethod("show",
 #' @rdname Fingerprint-plot
 #' @docType methods
 #' @import ggplot2
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr mutate
 #' @importFrom RColorBrewer brewer.pal
 #' @export
 
@@ -109,7 +107,6 @@ setMethod("plot",
                 cntext[context$fingerprint] <- context$context_label
               }
 
-              #browser()
               # To data frame
               df <- data.frame(
                 x = xax,
@@ -117,9 +114,9 @@ setMethod("plot",
                 fill = fill_values,
                 context = cntext,
                 stringsAsFactors = FALSE
-              ) %>%
-                mutate(
-                  context = factor(
+              )
+              # Add factor with context
+              df$context <- factor(
                     ifelse(is.na(context) & fill == 1,
                            "other",
                            ifelse(!is.na(context),
@@ -128,7 +125,6 @@ setMethod("plot",
                     ),
                     levels = c(as.character(na.omit(unique(names(contexts)))), "other")
                   )
-                )
 
               # Color palette
               col.pal <- RColorBrewer::brewer.pal(length(levels(df$context)),

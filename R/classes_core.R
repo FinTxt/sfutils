@@ -27,6 +27,7 @@
 #' @name Fingerprint-class
 
 .Fingerprint <- setClass(
+
   # Name
   "Fingerprint",
   # Slots
@@ -34,6 +35,7 @@
     uuid = "character",
     type = "character"
   )
+
 )
 
 #' @slot text text to be fingerprinted
@@ -44,6 +46,7 @@
 #' @name Document-class
 
 .Document <- setClass(
+
   # Name
   "Document",
   # data
@@ -53,6 +56,7 @@
   ),
   # Inherits
   contains = "Fingerprint"
+
 )
 
 #' @slot name Name of the filter
@@ -65,6 +69,7 @@
 #' @name Filter-class
 
 .Filter <- setClass(
+
   # Name
   "Filter",
   # data
@@ -76,6 +81,7 @@
   ),
   # Inherits
   contains = "Fingerprint"
+
 )
 
 #' @slot term term to be fingerprinted
@@ -89,6 +95,7 @@
 #' @name Term-class
 
 .Term <- setClass(
+
   # Name
   "Term",
   # data
@@ -101,6 +108,7 @@
   ),
   # Inherits
   contains = "Fingerprint"
+
 )
 
 #' @slot expression expression to be fingerprinted
@@ -111,6 +119,7 @@
 #' @name Expression-class
 
 .Expression <- setClass(
+
   # Name
   "Expression",
   # data
@@ -120,6 +129,7 @@
   ),
   # Inherits
   contains = "Fingerprint"
+
 )
 
 
@@ -127,7 +137,7 @@
 
 #' Document class
 #'
-#' The Document class is one of the four core classes in the FinTxtUtils package. A Document is a (large) body of text.
+#' The Document class is one of the four core classes in the sfutils package. A Document is a (large) body of text.
 #'
 #' (From \href{Cortical documentation}{http://documentation.cortical.io/working_with_text.html}) The functionality we offer for text is a little more elaborate than for terms, given the more complex nature of texts. Besides getting a semantic fingerprint (semantic representation) for a given text (the /text endpoint), one can also get a list of keywords extracted from the text, or get the text split up into smaller consecutive chunks, based on information content. We also provide functionality for extracting terms from a text based on part of speech tags. There is also a bulk endpoint for merging several /text requests into just one http request. Finally there is a detect_language endpoint capable of detecting 50 languages.
 #'
@@ -170,9 +180,13 @@ Document <- function(text, ...) {
   # If fingerprint is passed to Document (this happens when e.g. documents are printed in bulk)
   # then take this fingerprint. Else, query API
   if("fingerprint" %in% names(opts)) {
+
     text_fp <- opts$fingerprint
+
   } else {
+
     text_fp <- fingerprint_single_text(text)
+
   }
 
   # Set up fingerprint class
@@ -190,7 +204,7 @@ Document <- function(text, ...) {
 
 #' Filter class
 #'
-#' The Filter class is one of the four core classes in the FinTxtUtils package. A Filter works as a classification device because the user passes positive & negative examples to construct it.
+#' The Filter class is one of the four core classes in the sfutils package. A Filter works as a classification device because the user passes positive & negative examples to construct it.
 #'
 #' (From \href{Cortical documentation}{http://documentation.cortical.io/classification.html}) This endpoint allows the user to create category filters, simply and easily, using only a small number of example texts. The newly created category filters can then be used as part of a classification process, where items to be classified can be compared against the category filters using our /compare and/or /compare/bulk endpoints (which you can see in our interactive API documentation). See our similarity metrics` guide for information on how to interpret the output from the compare endpoints.
 #'
@@ -288,7 +302,7 @@ Filter <- function(name, positive, ...) {
 
 #' Term class
 #'
-#' The Term class is one of the four core classes in the FinTxtUtils package. A Term is a single word.
+#' The Term class is one of the four core classes in the sfutils package. A Term is a single word.
 #'
 #' (From \href{Cortical documentation}{http://documentation.cortical.io/working_with_terms.html}) The basic building blocks for performing semantic computations are the representations for single terms. Each Retina contains semantic representations (fingerprints) for a large number of terms, and this page describes how to retrieve these from the API. Furthermore we describe how to query the Retina for semantically similar terms, and retrieve a list of contexts in which a given term can occur.
 #'
@@ -331,7 +345,7 @@ Term <- function(term, ...) {
 
 #' Expression-class
 #'
-#' The Expression class is one of the four core classes in the FinTxtUtils package. An Expression is more complicated than a Term or a Text because one can define operations (subtract, add) on them.
+#' The Expression class is one of the four core classes in the sfutils package. An Expression is more complicated than a Term or a Text because one can define operations (subtract, add) on them.
 #'
 #' (From \href{Cortical documentation}{http://documentation.cortical.io/the_power_of_expressions.html}) As briefly mentioned in the introduction, semantically meaningful operations can be carried out on fingerprints by performing simple binary operations on the positions of the fingerprints. Semantic relationships between fingerprints can be discovered by looking at their overlapping positions in the semantic space. This allows us, for example, to subtract the meaning of one term from the meaning of another term to obtain a more specific representation. In the /expressions endpoint, we offer these binary operations on the fingerprints and, along with this, a flexible way of specifying the input data.
 #'
