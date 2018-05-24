@@ -146,6 +146,54 @@ setMethod("plot",
                       legend.position = "right") +
                 ggtitle("Fingerprint plot")
 
+            } else if("terms" %in% names(opts)) {
+
+              trms <- opts$terms
+              terms <- rep(NA, 16384)
+              # For each context, do
+              for(trm in trms) {
+                terms[trm$fingerprint] <- trm$term
+              }
+
+              # To data frame
+              df <- data.frame(
+                x = xax,
+                y = yax,
+                fill = fill_values,
+                terms = terms,
+                stringsAsFactors = FALSE
+              )
+              # Add factor with terms
+              df$terms <- factor(
+                ifelse(is.na(df$terms) & df$fill == 1,
+                       "other",
+                       ifelse(!is.na(df$terms),
+                              df$terms,
+                              NA)
+                ),
+                levels = c(as.character(na.omit(unique(names(trms)))), "other")
+              )
+
+              # Color palette
+              col.pal <- RColorBrewer::brewer.pal(length(levels(df$terms)),
+                                                  "Set3")
+
+              # Plot
+              ggplot(data= df, aes(x=x, y=y)) +
+                geom_tile(aes(fill = terms), alpha = 0.9) +
+                theme_bw() +
+                scale_fill_manual(name = "Terms",
+                                  na.value = "white",
+                                  values = col.pal) +
+                theme(line = element_blank(),
+                      axis.ticks = element_blank(),
+                      axis.text.y = element_blank(),
+                      axis.text.x = element_blank(),
+                      axis.title.x = element_blank(),
+                      axis.title.y = element_blank(),
+                      legend.position = "right") +
+                      ggtitle("Fingerprint plot")
+
             } else {
 
               # To data frame

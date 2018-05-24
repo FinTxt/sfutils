@@ -91,6 +91,44 @@ setGeneric("get_similar_terms", function(object, ...) {
 
 })
 
+#' Tokenize a text
+#'
+#' Tokenize a text using the Cortical API
+#'
+#' @param object An object of class Document
+#'
+#' @return vector of length n. Here, n is equal to the number of sentences in the text. Each sentence is tokenized using commas.
+#'
+#' @rdname do_tokenize-methods
+#' @export
+#' @docType methods
+#'
+
+setGeneric("do_tokenize", function(object, ...) {
+
+  standardGeneric("do_tokenize")
+
+})
+
+#' Slice a text
+#'
+#' Returns an ordered list of text objects (ordered according to where the text slice appears in the input text). A Text object consists of a text slice (defined as a slice by the Retina) and a Fingerprint object corresponding to the text slice.
+#'
+#' @param object An object of class Document
+#'
+#' @return list of length n, where n is the number of slices.
+#'
+#' @rdname do_slice_document-methods
+#' @export
+#' @docType methods
+#'
+
+setGeneric("do_slice_document", function(object, ...) {
+
+  standardGeneric("do_slice_document")
+
+})
+
 # GENERICS OTHER ----
 
 #' Similarity/Distance between fingerprints

@@ -87,10 +87,24 @@ setMethod("do_slice_document",
                                          apiServer = server,
                                          retinaName = retina)
 
-            # Get keywords
-            tok <- conn$getTokensForText(text)
+            # Encode text
+            txt_encode <- reticulate::r_to_py(text)
+            txt_encode <- txt_encode$encode("utf-8")
+
+            # Get slices
+            slic <- conn$getSlicesForText(txt_encode,
+                                          getFingerprint = TRUE)
+
+            # Lapply each slice
+            slic_proc <- lapply(slic, function(x) {
+              list(
+                "text" = x$text,
+                "fingerprint" = x$fingerprint
+              )
+
+            })
 
             # Return
-            return(tok)
+            return(slic_proc)
 
           })
