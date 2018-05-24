@@ -40,3 +40,57 @@ setMethod("get_keywords",
             return(kw)
 
           })
+
+#' @rdname do_tokenize-methods
+
+setMethod("do_tokenize",
+          "Document",
+          function(object) {
+
+            # Get text
+            text <- object@text
+
+            # Get key
+            key <- Sys.getenv("CORTICAL_API_KEY")
+            server <- Sys.getenv("CORTICAL_SERVER")
+            retina <- Sys.getenv("CORTICAL_RETINA")
+
+            # Register
+            conn <- retinasdk$FullClient(key,
+                                         apiServer = server,
+                                         retinaName = retina)
+
+            # Get keywords
+            tok <- conn$getTokensForText(text)
+
+            # Return
+            return(tok)
+
+          })
+
+#' @rdname do_slice_document-methods
+
+setMethod("do_slice_document",
+          "Document",
+          function(object) {
+
+            # Get text
+            text <- object@text
+
+            # Get key
+            key <- Sys.getenv("CORTICAL_API_KEY")
+            server <- Sys.getenv("CORTICAL_SERVER")
+            retina <- Sys.getenv("CORTICAL_RETINA")
+
+            # Register
+            conn <- retinasdk$FullClient(key,
+                                         apiServer = server,
+                                         retinaName = retina)
+
+            # Get keywords
+            tok <- conn$getTokensForText(text)
+
+            # Return
+            return(tok)
+
+          })

@@ -216,7 +216,7 @@ setMethod("plot",
                     axis.title.x = element_blank(),
                     axis.title.y = element_blank(),
                     legend.position = "none") +
-              ggtitle("Fingerprint plot of news intensities (darker is higher intensity)")
+              ggtitle("Fingerprint intensity (darker is higher intensity)")
           })
 
 # SPECIFIC METHODS -----
