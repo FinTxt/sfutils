@@ -33,8 +33,12 @@ setMethod("get_keywords",
                                          apiServer = server,
                                          retinaName = retina)
 
+            # This needs to be encoded ...
+            pp <- reticulate::r_to_py(text)
+            encoded <- pp$encode("utf-8")
+
             # Get keywords
-            kw <- conn$getKeywordsForText(text)
+            kw <- conn$getKeywordsForText(encoded)
 
             # Return
             return(kw)
@@ -60,8 +64,12 @@ setMethod("do_tokenize",
                                          apiServer = server,
                                          retinaName = retina)
 
+            # This needs to be encoded ...
+            pp <- reticulate::r_to_py(text)
+            encoded <- pp$encode("utf-8")
+
             # Get keywords
-            tok <- conn$getTokensForText(text)
+            tok <- conn$getTokensForText(encoded)
 
             # Return
             return(tok)
@@ -87,12 +95,12 @@ setMethod("do_slice_document",
                                          apiServer = server,
                                          retinaName = retina)
 
-            # Encode text
-            txt_encode <- reticulate::r_to_py(text)
-            txt_encode <- txt_encode$encode("utf-8")
+            # This needs to be encoded ...
+            pp <- reticulate::r_to_py(text)
+            encoded <- pp$encode("utf-8")
 
             # Get slices
-            slic <- conn$getSlicesForText(txt_encode,
+            slic <- conn$getSlicesForText(encoded,
                                           getFingerprint = TRUE)
 
             # Lapply each slice
