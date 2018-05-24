@@ -14,7 +14,7 @@ Imports:
     utils,
     methods,
     reticulate,
-    jsonlite
+    jsonlite,
     assertthat,
     ggplot2,
     uuid
