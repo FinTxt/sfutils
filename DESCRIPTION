@@ -1,0 +1,43 @@
+Package: sfutils
+Type: Package
+Title: Semantic Fingerprinting in R
+Version: 0.1.0
+Author: Jasper Ginn
+Maintainer: The package maintainer <jasperginn@gmail.com>
+Authors@R: person("Jasper", "Ginn", role = c("aut", "cre"), email = "jasperginn@gmail.com")
+Description: 
+    This package enables the user to create, manipulate, plot and compute with 'semantic fingerprints',
+    developed by www.cortical.io in R. It does so by porting the python module 'retinasdk' to R. 
+Depends:
+    Matrix
+Imports:
+    rlist,
+    utils,
+    methods,
+    dplyr,
+    purrr,
+    reticulate,
+    rjson,
+    tidyr,
+    assertthat,
+    ggplot2,
+    uuid
+Suggests:
+    magrittr,
+    testthat,
+    FactoMineR,
+    glmnet,
+    caret,
+    e1071,
+    knitr,
+    rmarkdown
+URL:
+    https://github.com/JasperHG90/FinTxtUtils.git
+BugReports:
+    https://github.com/JasperHG90/FinTxtUtils/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
