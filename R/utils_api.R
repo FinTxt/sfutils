@@ -27,10 +27,14 @@
 fingerprint_single_text <- function(text) {
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
 
   # Get fingerprint
   res <- conn$getFingerprintForText(text)
@@ -70,10 +74,14 @@ fingerprint_multiple_texts <- function(text_list) {
   }
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
 
   # Get fingerprint
   res <- conn$getFingerprintsForTexts(text_list)
@@ -109,10 +117,14 @@ create_categoryfilter <- function(name, positive, ...) {
   }
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
 
   # Create filter
   if(is.null(negative)) {
@@ -142,10 +154,17 @@ create_categoryfilter <- function(name, positive, ...) {
 fingerprint_term <- function(term) {
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
+
+  # Register
+  conn <- retinasdk$FullClient(key)
 
   # Get fingerprint
   res <- conn$getTerms(term, getFingerprint = TRUE)
@@ -177,10 +196,17 @@ fingerprint_term <- function(term) {
 fingerprint_single_expression <- function(expression) {
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
+
+  # Register
+  conn <- retinasdk$FullClient(key)
 
   # cast to json
   body_json <- jsonlite::toJSON(expression, auto_unbox = TRUE)
@@ -208,13 +234,18 @@ fingerprint_single_expression <- function(expression) {
 fingerprint_multiple_expressions <- function(expression_list) {
 
   # Get key
-  key_rand <- sample_cortical_key()
+  key <- Sys.getenv("CORTICAL_API_KEY")
+  server <- Sys.getenv("CORTICAL_SERVER")
+  retina <- Sys.getenv("CORTICAL_RETINA")
 
   # Register
-  conn <- retinasdk$FullClient(key_rand)
+  conn <- retinasdk$FullClient(key,
+                               apiServer = server,
+                               retinaName = retina)
 
   # Cast to json
-  bdjson <- jsonlite::toJSON(expression_list, auto_unbox = TRUE)
+  bdjson <- jsonlite::toJSON(expression_list,
+                             auto_unbox = TRUE)
 
   # Get fingerprints
   res <- conn$getFingerprintsForExpressions(bdjson)
@@ -226,7 +257,4 @@ fingerprint_multiple_expressions <- function(expression_list) {
   res_pos
 
 }
-
-
-
 

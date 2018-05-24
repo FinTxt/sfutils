@@ -26,10 +26,14 @@ setMethod("get_context",
           function(object) {
 
             # Get key
-            key_rand <- sample_cortical_key()
+            key <- Sys.getenv("CORTICAL_API_KEY")
+            server <- Sys.getenv("CORTICAL_SERVER")
+            retina <- Sys.getenv("CORTICAL_RETINA")
 
             # Register
-            conn <- retinasdk$FullClient(key_rand)
+            conn <- retinasdk$FullClient(key,
+                                         apiServer = server,
+                                         retinaName = retina)
 
             # Get fingerprint
             res <- conn$getContextsForTerm(term(object),

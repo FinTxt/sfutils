@@ -117,10 +117,10 @@ setMethod("plot",
               )
               # Add factor with context
               df$context <- factor(
-                    ifelse(is.na(context) & fill == 1,
+                    ifelse(is.na(df$context) & df$fill == 1,
                            "other",
-                           ifelse(!is.na(context),
-                                  context,
+                           ifelse(!is.na(df$context),
+                                  df$context,
                                   NA)
                     ),
                     levels = c(as.character(na.omit(unique(names(contexts)))), "other")
