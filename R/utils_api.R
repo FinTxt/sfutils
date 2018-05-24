@@ -36,8 +36,13 @@ fingerprint_single_text <- function(text) {
                                apiServer = server,
                                retinaName = retina)
 
+
+  # This needs to be encoded ...
+  pp <- reticulate::r_to_py(text)
+  encoded <- pp$encode("utf-8")
+
   # Get fingerprint
-  res <- conn$getFingerprintForText(text)
+  res <- conn$getFingerprintForText(encoded)
 
   # Return
   return(res$positions)
@@ -83,8 +88,12 @@ fingerprint_multiple_texts <- function(text_list) {
                                apiServer = server,
                                retinaName = retina)
 
+  # Encode each article
+  lst_encoded <- lapply(lst, function(x) reticulate::r_to_py(x))
+  text_list_py <- reticulate::r_to_py(lst_encoded)
+
   # Get fingerprint
-  res <- conn$getFingerprintsForTexts(text_list)
+  res <- conn$getFingerprintsForTexts(text_list_py)
 
   # Get positions
   res_pos <- lapply(res, function(x) x$positions)
