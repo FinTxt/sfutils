@@ -1,0 +1,183 @@
+---
+title: "README"
+author: "Jasper Ginn"
+date: "5/25/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## What is it?
+
+The goal of `sfutils` is to provide code and documentation on working with [semantic fingerprints](http://www.cortical.io/technology_semantic.html) in R. 
+
+It does this by:
+
+- porting the functionality of the [retinasdk](https://github.com/cortical-io/retina-sdk.py) python module to R using the [reticulate](https://github.com/rstudio/reticulate) library
+- implementing an object-oriented approach to working with semantic fingerprints in R.
+- providing methods and functions that make it easy to compare fingerprints, convert fingerprints to sparse binary matrices, plot fingerprints etc.
+
+## Awesome! What do I need to do to install this package?
+
+First things first: have you heard of the reticulate library? It provides a pretty straightforward API to run Python code in R and convert objects between these two languages. 
+
+This package uses Python 3.x and the `retinasdk` module. If you haven't yet installed Python 3, go ahead and do so. Make sure to also install `pip`. Generally, I find it easiest to install the [Anaconda](https://www.anaconda.com/download/) distribution.
+
+When you've installed python and pip, execute the following in a terminal:
+
+```terminal
+pip install retinasdk
+```
+
+You can then install the latest version of `sfutils` from GitHub using:
+
+```{r}
+devtools::install_github("JasperHG90/sfutils")
+```
+
+If you don't have the devtools library installed, execute `install.packages("devtools")` first.
+
+### Running sfutils inside a Docker container
+
+Can I use this in a docker container?
+
+## I'm all set! How do I get started?
+
+Go ahead and load the package
+
+```{r}
+suppressPackageStartupMessages(library(sfutils))
+```
+
+I've included several business descriptions that I retrieved from Thompson Reuters. I'll be using those for the examples below.
+
+```{r}
+data("company_descriptions")
+```
+
+The following are core `sfutils` functions used to 'fingerprint' your [documents](http://documentation.cortical.io/working_with_text.html), [terms](http://documentation.cortical.io/working_with_terms.html), [semantic expressions](http://documentation.cortical.io/the_power_of_expressions.html) or [category filters](http://documentation.cortical.io/classification.html):
+
+- `do_fingerprint_documents()` : fingerprint a text
+- `do_fingerprint_term()` : fingerprint a term
+- `do_fingerprint_expression()` : fingerprint a semantic expression
+- `do_create_filter()` : create a category filter
+
+In the case of the company description data, we can send a list of documents in bulk to the API to be fingerprinted. This is more efficient than doing it one-by-one.
+
+```{r}
+# Put descriptions into a list
+txt_lst <- lapply(company_descriptions, function(x) x$desc)
+# Create fingerprints
+fps <- do_fingerprint_document(txt_lst)
+```
+
+This returns an object of the 'Collection' class. A Collection is simply a grouping of objects with a semantic fingerprint (in our case texts). It behaves a lot like a list:
+
+```{r}
+fps[[1]]
+```
+
+You may, in fact, convert it to a list if you want
+
+```{r}
+fps_lst <- as.list(fps)
+# OR
+fps_lst <- entries(fps)
+```
+
+But there are some advantages to keeping the data in this format. For one, we can plot the intensity (normalized count) of each position
+
+```{r, fig.width=3, fig.height=3}
+plot(fps)
+```
+
+Or we can convert the collection to a sparse binary matrix. In this representation, we have 16384 columns (as many as there are positions in the retina) and $n$ rows (where n equals the number of entries). If a position is present in the document, it has a value of 1. Else, it has a value of 0.
+
+```{r}
+fps_binmat <- as.matrix(fps)
+fps_binmat[1:5, 1:5]
+```
+
+This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term 'software', 'finance', and 'food':
+
+```{r}
+# Fingerprint terms
+trm_soft <- do_fingerprint_term("software")
+trm_fin <- do_fingerprint_term("finance")
+trm_cons <- do_fingerprint_term("food")
+
+# Compare descriptions to these fingerprints
+cmp_soft <- do_compare(fps_binmat, trm_soft)
+cmp_fin <- do_compare(fps_binmat, trm_fin)
+cmp_cons <- do_compare(fps_binmat, trm_cons)
+
+# Combine the results
+cmp_comb <- do.call(cbind.data.frame, list(cmp_soft, cmp_fin, cmp_cons))
+
+# Change the names of the matrix
+rownames(cmp_comb) <- names(company_descriptions)
+colnames(cmp_comb) <- c("software", "finance", "food")
+cmp_comb
+```
+
+As we can see, this comparison works well, even though we just use one term. We could make a better comparison by creating a category filter.
+
+```{r}
+# Create a category filter using wikipedia snippets
+# https://en.wikipedia.org/wiki/Finance
+# https://en.wikipedia.org/wiki/Information_technology
+# https://en.wikipedia.org/wiki/Final_good
+filt <- do_create_filter(
+  "finance",
+  positive = c("Finance is a field that deals with the study of investments. It includes the dynamics of assets and liabilities over time under conditions of different degrees of uncertainties and risks. Finance can also be defined as the science of money management. Market participants aim to price assets based on their risk level, fundamental value, and their expected rate of return. Finance can be broken into three sub-categories: public finance, corporate finance and personal finance.",
+               "Corporate finance deals with the sources funding and the capital structure of corporations, the actions that managers take to increase the value of the firm to the shareholders, and the tools and analysis used to allocate financial resources. Although it is in principle different from managerial finance which studies the financial management of all firms, rather than corporations alone, the main concepts in the study of corporate finance are applicable to the financial problems of all kinds of firms. "),
+  negative = c("Information technology (IT) is the use of computers to store, retrieve, transmit, and manipulate data, or information, often in the context of a business or other enterprise. IT is considered to be a subset of information and communications technology (ICT).",
+               "In economics, any commodity which is produced and subsequently consumed by the consumer, to satisfy his current wants or needs, is a consumer good or final good. Consumer goods are goods that are ultimately consumed rather than used in the production of another good. For example, a microwave oven or a bicycle which is sold to a consumer is a final good or consumer good, whereas the components which are sold to be used in those goods are called intermediate goods. For example, textiles or transistors which can be used to make some further goods.")
+)
+
+# Compare
+cmp <- do_compare(fps_binmat, filt)
+rownames(cmp) <- names(company_descriptions)
+colnames(cmp) <- "filter"
+
+cmp
+```
+
+Alternatively, we might be interested in comparing the descriptions to one another:
+
+```{r}
+# Create an empty matrix
+m <- matrix(0, ncol = 6, nrow = 6)
+# Populate matrix. Use Euclidean distance
+for(i in 1:6) {
+  m[,i] <- do_compare(fps_binmat, fps[[i]], 
+                      method = "euclid")[,1]
+}
+colnames(m) <- names(company_descriptions)
+rownames(m) <- names(company_descriptions)
+print(m)
+```
+
+Then we can use e.g. hierarchical clustering to cluster the companies based on their descriptions.
+
+```{r}
+# Convert to a distance matrix
+fps_dist <- as.dist(m)
+# Create clusters
+clusters <- hclust(fps_dist, method = "ward.D2")
+# Plot
+plot(clusters)
+```
+
+For more examples, check out the vignettes.
+
+## What's performance like?
+
+That depends on your use case. If you want to work with >10K documents and need to use this in a production environment, then performance probably isn't great. If you don't care about execution times that much then you can easily use this package for 100K+ documents. Check the graph below for an indication of performance.
+
+<img src=plots/speed.png width=80%/>
+
+`as.matrix()` takes roughly 10 minutes for 100.000 documents and takes up 1.1GB of space
+comparing a document to 100.000 documents takes roughly 6 minutes. By comparison, this operation takes +- 25 seconds on a collection of 10.000 documents (size is +-123MB).
