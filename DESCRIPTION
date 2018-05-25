@@ -23,9 +23,9 @@ Suggests:
     knitr,
     rmarkdown
 URL:
-    https://github.com/JasperHG90/FinTxtUtils.git
+    https://github.com/JasperHG90/sfutils.git
 BugReports:
-    https://github.com/JasperHG90/FinTxtUtils/issues
+    https://github.com/JasperHG90/sfutils/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

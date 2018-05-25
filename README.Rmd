@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.height=5, fig.width=5)
 ```
 
 ## What is it?
@@ -21,11 +21,11 @@ It does this by:
 
 ## Awesome! What do I need to do to install this package?
 
-First things first: have you heard of the reticulate library? It provides a pretty straightforward API to run Python code in R and convert objects between these two languages. 
+First things first: have you heard of the reticulate library? It provides a pretty straightforward API to run Python code in R and convert objects between these two languages. `sfutils` uses the reticulate package to communicate with Python. 
 
 This package uses Python 3.x and the `retinasdk` module. If you haven't yet installed Python 3, go ahead and do so. Make sure to also install `pip`. Generally, I find it easiest to install the [Anaconda](https://www.anaconda.com/download/) distribution.
 
-When you've installed python and pip, execute the following in a terminal:
+When you've installed Python and pip, execute the following in a terminal:
 
 ```terminal
 pip install retinasdk
@@ -33,7 +33,7 @@ pip install retinasdk
 
 You can then install the latest version of `sfutils` from GitHub using:
 
-```{r}
+```{r, eval=TRUE}
 devtools::install_github("JasperHG90/sfutils")
 ```
 
@@ -51,6 +51,17 @@ Go ahead and load the package
 suppressPackageStartupMessages(library(sfutils))
 ```
 
+The first thing to do is to set your API key, the server url and retina name as environment variables. If you're using the free API, you can just set your key and forget about the other two options.
+
+```{r, eval=FALSE}
+# Set credentials
+Sys.setenv("CORTICAL_SERVER" = "http://api.cortical.io/rest") # Optional
+Sys.setenv("CORTICAL_RETINA" = "en_associative") # Optional
+Sys.setenv("CORTICAL_API_KEY" = "mykey")
+```
+
+Alternatively, you can put these options in your global or local .Rprofile.
+
 I've included several business descriptions that I retrieved from Thompson Reuters. I'll be using those for the examples below.
 
 ```{r}
@@ -59,7 +70,7 @@ data("company_descriptions")
 
 The following are core `sfutils` functions used to 'fingerprint' your [documents](http://documentation.cortical.io/working_with_text.html), [terms](http://documentation.cortical.io/working_with_terms.html), [semantic expressions](http://documentation.cortical.io/the_power_of_expressions.html) or [category filters](http://documentation.cortical.io/classification.html):
 
-- `do_fingerprint_documents()` : fingerprint a text
+- `do_fingerprint_document()` : fingerprint a text
 - `do_fingerprint_term()` : fingerprint a term
 - `do_fingerprint_expression()` : fingerprint a semantic expression
 - `do_create_filter()` : create a category filter
@@ -89,7 +100,7 @@ fps_lst <- entries(fps)
 
 But there are some advantages to keeping the data in this format. For one, we can plot the intensity (normalized count) of each position
 
-```{r, fig.width=3, fig.height=3}
+```{r, fig.width=6, fig.height=6}
 plot(fps)
 ```
 
@@ -145,7 +156,9 @@ colnames(cmp) <- "filter"
 cmp
 ```
 
-Alternatively, we might be interested in comparing the descriptions to one another:
+This does what we expect; ING and JPMorgan get a high similarity score (>0.3) and the others have a lower score.
+
+Alternatively, we might be interested in comparing the company descriptions to one another:
 
 ```{r}
 # Create an empty matrix
@@ -162,7 +175,7 @@ print(m)
 
 Then we can use e.g. hierarchical clustering to cluster the companies based on their descriptions.
 
-```{r}
+```{r, eval=FALSE}
 # Convert to a distance matrix
 fps_dist <- as.dist(m)
 # Create clusters
@@ -170,6 +183,52 @@ clusters <- hclust(fps_dist, method = "ward.D2")
 # Plot
 plot(clusters)
 ```
+
+<img src=plots/dendo.png width=80%/>
+
+You can use the [FactoMineR](http://factominer.free.fr) package to reduce the number of dimensions. This is useful especially when you want to compare many documents, because it reduces the number of dimensions (16384 in our case, or the number of positions) to just $k$ dimensions, where $k$ is the number of principal components we want to use.
+
+```{r, eval = FALSE}
+library(FactoMineR)
+# Run PCA
+fps_reduced <- PCA(as.matrix(fps_binmat), 
+                   ncp = ncol(fps_binmat), 
+                   graph = FALSE)
+
+# Predict
+pred <- predict(fps_reduced, 
+                as.matrix(fps_binmat))$coord
+
+# Reshape
+library(dplyr)
+pred_resh <- as_data_frame(pred) %>%
+  mutate(company = names(company_descriptions)) %>%
+  select(company, Dim.1, Dim.2) 
+
+# Plot
+library(ggplot2)
+ggplot(pred_resh, aes(x=Dim.1, y=Dim.2, color = company)) +
+  geom_point(size = 2) +
+  theme_bw()
+```
+
+<img src=plots/PCA.png width=80%/>
+
+This result is quite interesting. The companies' distance to each other seems to be influenced by how similar their business descriptions are. 
+
+```{r, eval=FALSE}
+# Cluster companies using only two dimensions
+pred_resh$company <- NULL
+pred_resh <- as.matrix(pred_resh)
+rownames(pred_resh) <- names(company_descriptions)
+x <- dist(pred_resh)
+
+# Cluster
+clust <- hclust(x)
+plot(clust)
+```
+
+<img src=plots/dendo2.png width=80%/>
 
 For more examples, check out the vignettes.
 
