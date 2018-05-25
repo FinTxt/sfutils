@@ -1,0 +1,122 @@
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  title: "sfutils"
+  left:
+    - text: "Vignettes"
+      href: articles/index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+    - text: "To do"
+      href: TODO.html
+    - text: "See also"
+      menu:
+        - text: "FinTxtAPI package"
+          href: "http://notyetalink.com"
+        - text: "FinTxtShiny package"
+          href: "http://notyetalink.com"
+        - text: "FinTxtDocker image"
+          href: "https://hub.docker.com/r/jhginn/fintxtdocker/"
+    - text: "Useful links"
+      menu:
+        - text: "Python retinasdk module"
+          href: https://github.com/cortical-io/retina-sdk.py
+        - text: "Cortical API tool"
+          href: http://api.cortical.io
+        - text: "Retina API documentation"
+          href: http://documentation.cortical.io/the_power_of_expressions.html
+        - text: "Semantic folding whitepaper"
+          href: http://www.cortical.io/static/downloads/semantic-folding-theory-white-paper.pdf
+    - text: "Cortical.io"
+      href: http://www.cortical.io
+  right:
+   - icon: fa-envelope
+     href: mailto:jasperginn@gmail.com
+   - icon: fa-github
+     href: https://github.com/JasperHG90/sfutils
+   - icon: fa-slack
+     href: https://fintxt.slack.com/messages/CAAUEHK6X/details/
+
+articles:
+  - title: "Core package functionality"
+    desc: >
+      How to use the package and its core functions.
+    contents:
+      - plotting
+      - construct_expressions
+      - compare_fingerprints
+
+reference:
+  - title: "Core classes"
+    desc: >
+      Core classes of FinTxtUtils. They all inherit from the 'Fingerprint' class,
+      but are organized along the lines of Cortical's taxonomy.
+    contents:
+      - Filter
+      - Expression
+      - Term
+      - Document
+      - Fingerprint-class
+  - title: "Ancillary classes"
+    desc: >
+      Useful classes that are core R implementations
+    contents:
+      - Collection
+      - Intensity
+  - title: "Core functions"
+    desc: >
+      Core functionality to fingerprint terms, documents, expressions or
+      to create filters.
+    contents:
+      - do_fingerprint_document
+      - do_fingerprint_term
+      - do_fingerprint_expression
+      - do_create_filter
+  - title: "Class methods"
+    desc: >
+      Methods that belong to classes
+    contents:
+      - do_compare
+      - get_context
+      - get_keywords
+      - plot_context
+      - show,Fingerprint-method
+      - plot,Fingerprint-method
+      - show,Collection-method
+      - plot,Collection-method
+      - as.list,Collection-method
+      - as.matrix,Collection-method
+      - length,Collection-method
+      - get_context,Collection-method
+      - do_slice_document
+      - do_tokenize
+      - get_similar_terms
+
+  - title: "Getters"
+    desc: >
+      Simple functions that retrieve slots from objects
+    contents:
+      - uuid
+      - type
+      - fingerprint
+      - text
+      - sfexpression
+      - term
+      - df
+      - score
+      - pos_types
+      - name
+      - positive
+      - negative
+      - entries
+  - title: "Data sets"
+    desc: >
+      Datasets for user to play around with.
+    contents:
+      - fps_train
+      - fps_test
+      - company_descriptions
