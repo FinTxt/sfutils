@@ -11,7 +11,7 @@
 \usage{
 get_context(object, ...)
 
-\S4method{get_context}{Collection}(object, type = c("Expression", "Term"))
+\S4method{get_context}{Collection}(object)
 
 \S4method{get_context}{Expression}(object)
 
@@ -19,8 +19,6 @@ get_context(object, ...)
 }
 \arguments{
 \item{object}{Either: a single Term or Expression class object OR a Collection containing Term or Expression class objects}
-
-\item{type}{either one of 'Expression' or 'Term'}
 }
 \value{
 list containing different contexts

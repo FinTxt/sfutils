@@ -28,7 +28,7 @@
 \alias{positive,Filter-method}
 \alias{negative,Filter-method}
 \alias{entries,Collection-method}
-\title{Get slots from FinTxtUtuls classes}
+\title{Get slots from sfutils classes}
 \usage{
 uuid(object)
 
@@ -86,5 +86,5 @@ entries(object)
 \item{object}{a class object containing the slot}
 }
 \description{
-These functions retrieve slots from FinTxtUtuls classes (Fingerprint, Term, Document, Expression, Collection).
+These functions retrieve slots from sfutils classes (Fingerprint, Term, Document, Expression, Collection).
 }

@@ -33,7 +33,8 @@ do_fingerprint_document <- function(x) {
     res <- fingerprint_multiple_texts(x)
 
     # Create a list of Document classes
-    res_doc <- mapply(function(fp, text) Document(text = text,fingerprint = fp),
+    res_doc <- mapply(function(fp, text) Document(text = text,
+                                                  fingerprint = fp),
                       res, x)
 
     # Pass to collection

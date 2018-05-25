@@ -26,7 +26,7 @@ list containing different contexts
 Retrieve similar terms for a Term or an Expression object
 }
 \seealso{
-\href{http://documentation.cortical.io/working_with_terms.html}{This} page for more information about contexts and terms
+\href{http://documentation.cortical.io/the_power_of_expressions.html}{This} page for more information about contexts and expressions
 
 \href{http://documentation.cortical.io/working_with_terms.html}{This} page for more information about contexts and terms
 }

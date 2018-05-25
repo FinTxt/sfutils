@@ -221,11 +221,45 @@ setMethod("plot",
 
 # SPECIFIC METHODS -----
 
+#' @rdname as_collection-methods
+
 setMethod("as.collection",
           "list",
           function(list) {
 
             Collection(list)
+
+          })
+
+#' @rdname do_search_collection-methods
+
+setMethod("do_search_collection",
+          "Collection",
+          function(obj, uuid) {
+
+            # Check length of uuid
+            uuid_length <- length(uuid)
+
+            # All must be characters
+            is_char <- assertthat::assert_that(is(uuid)[1] == "character",
+                                               msg="'uuid' must be one or multiple characters")
+
+            # Search for specific uuid
+            searched <- vapply(obj@entries, function(x) {
+
+              x@uuid %in% uuid
+
+            }, TRUE)
+
+            # Subset
+            subs <- obj[searched]
+
+            # Return
+            if(uuid_length == 1) {
+              subs
+            } else {
+              as.collection(subs)
+            }
 
           })
 

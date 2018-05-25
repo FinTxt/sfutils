@@ -195,11 +195,9 @@ setGeneric("do_compare", function(x,y, method=c("cosine", "jaccard", "dice",
 #'
 #' @return Object of class \code{\link[sfutils]{Collection}}
 #'
-#' @seealso \href{http://www.iiisci.org/journal/CV$/sci/pdfs/GS315JG.pdf}{This} paper with similarity metrics
-#'
 #' @export
 #' @docType methods
-#' @rdname do_compare-methods
+#' @rdname as_collection-methods
 #'
 #' @examples
 #' \dontrun{
@@ -212,29 +210,48 @@ setGeneric("do_compare", function(x,y, method=c("cosine", "jaccard", "dice",
 #' # Fingerprint documents
 #' txt_fp <- do_fingerprint_document(txt)
 #'
-#' # Fingerprint a term
-#' trm_fp <- do_fingerprint_term("finance")
+#' # To list
+#' lst <- as.list(txt_fp)
 #'
-#' # We can compare:
-#' #  - a document with a document
-#' do_compare(txt_fp[[1]], txt_fp[[2]])
-#' #  - a term with a document
-#' do_compare(txt_fp[[1]], trm_fp)
-#' #  - an expression with a document
-#' #  ... anything with a fingerprint
-#'
-#' # We can also compare a sparse binary matrix
-#' # with another fingeprint
-#'
-#' # Convert the fingerprinted documents to a matrix
-#' txt_fp_mat <- as.matrix(txt_fp)
-#' # Compare to term
-#' do_compare(txt_fp_mat, trm_fp)
+#' # To collection
+#' colcol <- as.collection(lst)
 #' }
 
 setGeneric("as.collection",
            function(list) {
 
              standardGeneric("as.collection")
+
+           })
+
+#' Search a collection for one or multiple unique ids
+#'
+#' @param obj Collection object to search in
+#' @param uuid one or multiple unique ids to search for
+#'
+#' @return Object of class \code{\link[sfutils]{Collection}} containing the objects that were searched for
+#'
+#' @export
+#' @docType methods
+#' @rdname do_search_collection-methods
+#'
+#' @examples
+#' \dontrun{
+#' # Get data
+#' data("company_descriptions")
+#'
+#' # Put text in a list
+#' txt <- lapply(company_descriptions, function(x) x$desc)
+#'
+#' # Fingerprint documents
+#' txt_fp <- do_fingerprint_document(unname(txt))
+#'
+#' # Search for
+#' }
+
+setGeneric("do_search_collection",
+           function(obj, uuid) {
+
+             standardGeneric("do_search_collection")
 
            })
