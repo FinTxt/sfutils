@@ -29,4 +29,17 @@ test_that("We can fingerprint a term and it contains the right number of slots, 
 
   # Expect a document type
   expect_equal(type(trm), "term")
+
+  # Test that we can get contexts
+  cntxts <- get_context(trm)
+
+  # There should be 7 objects
+  expect_length(cntxts, 7)
+
+  # Test that we can get terms
+  trms <- get_similar_terms(trm)
+
+  # There should be 10 elements
+  expect_length(trms, 10)
+
 })
