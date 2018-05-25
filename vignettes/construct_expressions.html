@@ -12,50 +12,12 @@
 
 <meta name="author" content="Jasper Ginn" />
 
-<meta name="date" content="2018-05-17" />
+<meta name="date" content="2018-05-25" />
 
 <title>Create semantic expressions</title>
 
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 
 
@@ -70,93 +32,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Create semantic expressions</h1>
 <h4 class="author"><em>Jasper Ginn</em></h4>
-<h4 class="date"><em>2018-05-17</em></h4>
+<h4 class="date"><em>2018-05-25</em></h4>
 
 
 
-<p>The Cortical API requires semantic expression to be written in a format that is not native to R. This can be a problem if you need to create a slightly more complex expression. <code>FinTxtUtils</code> contains a couple of useful functions to help you construct semantic expressions.</p>
-<p>For the full explanation, execute <code>?FinTxtUtils::create_expression</code> in R.</p>
-<p>To begin building an expression, you call <code>create_expression()</code>, which you then populate using e.g. <code>add_term()</code> and operators such as <code>AND()</code>, <code>OR()</code> etc. If you call an operator, you need to ‘close’ it using the <code>END()</code> operator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(FinTxtUtils)
-
-<span class="co"># Start building the expression</span>
-exp &lt;-<span class="st"> </span><span class="kw">create_expression</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># Subtract the following</span>
-<span class="st">  </span><span class="kw">SUB</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">add_term</span>(<span class="st">&quot;apple&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">AND</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># The following entries are added to the &quot;SUB&quot; level until you call &quot;</span><span class="re">END</span><span class="co">()&quot;</span>
-<span class="st">  </span><span class="kw">add_text</span>(<span class="st">&quot;Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">add_term</span>(<span class="st">&quot;banana&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">END</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">END</span>()
-
-knitr<span class="op">::</span><span class="kw">kable</span>(exp<span class="op">@</span>expression)</code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">current</th>
-<th align="left">type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">sub</td>
-<td align="left">operator</td>
-</tr>
-<tr class="even">
-<td align="left">apple</td>
-<td align="left">term</td>
-</tr>
-<tr class="odd">
-<td align="left">and</td>
-<td align="left">operator</td>
-</tr>
-<tr class="even">
-<td align="left">Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.</td>
-<td align="left">text</td>
-</tr>
-<tr class="odd">
-<td align="left">banana</td>
-<td align="left">term</td>
-</tr>
-<tr class="even">
-<td align="left">END</td>
-<td align="left">operator</td>
-</tr>
-<tr class="odd">
-<td align="left">END</td>
-<td align="left">operator</td>
-</tr>
-</tbody>
-</table>
-<p>You can build the expression using the <code>build_expression()</code> command</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exp <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">build_expression</span>()
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; [1] 1 2</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [[1]]$sub</span>
-<span class="co">#&gt; [[1]]$sub[[1]]</span>
-<span class="co">#&gt; [[1]]$sub[[1]]$term</span>
-<span class="co">#&gt; [1] &quot;apple&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[1]]$sub[[2]]</span>
-<span class="co">#&gt; [[1]]$sub[[2]]$and</span>
-<span class="co">#&gt; [[1]]$sub[[2]]$and[[1]]</span>
-<span class="co">#&gt; [[1]]$sub[[2]]$and[[1]]$text</span>
-<span class="co">#&gt; [1] &quot;Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[1]]$sub[[2]]$and[[2]]</span>
-<span class="co">#&gt; [[1]]$sub[[2]]$and[[2]]$term</span>
-<span class="co">#&gt; [1] &quot;banana&quot;</span></code></pre></div>
-<p>As you can see, this is a messy query, but <code>do_fingerprint_expression()</code> knows how to handle it:</p>
-<pre><code>#&gt; [1] 1
-#&gt; [1] 1 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">expr &lt;-<span class="st"> </span><span class="kw">do_fingerprint_expression</span>(io)</code></pre></div>
+<p>The Cortical API requires semantic expression to be written in a format that is not native to R. This document shows how to construct semantic expressions in R.</p>
 
 
 

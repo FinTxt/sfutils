@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ---- eval=TRUE, echo=FALSE----------------------------------------------
-suppressPackageStartupMessages(library(FinTxtUtils))
+suppressPackageStartupMessages(library(sfutils))
 suppressPackageStartupMessages(library(dplyr))
 
 ## ---- message=FALSE, eval=TRUE-------------------------------------------
@@ -62,7 +62,6 @@ mm <- purrr::map2_df(methods, type, function(x, y) {
 })
 
 knitr::kable(mm)
-
 
 ## ------------------------------------------------------------------------
 # Turn test and train into a sparse binary matrix

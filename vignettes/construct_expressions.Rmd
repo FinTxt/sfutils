@@ -16,46 +16,5 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Cortical API requires semantic expression to be written in a format that is not native to R. This can be a problem if you need to create a slightly more complex expression. `FinTxtUtils` contains a couple of useful functions to help you construct semantic expressions.
+The Cortical API requires semantic expression to be written in a format that is not native to R. This document shows how to construct semantic expressions in R.
 
-For the full explanation, execute `?FinTxtUtils::create_expression` in R.
-
-To begin building an expression, you call `create_expression()`, which you then populate using e.g. `add_term()` and operators such as `AND()`, `OR()` etc. If you call an operator, you need to 'close' it using the `END()` operator.
-
-```{r}
-library(magrittr)
-library(FinTxtUtils)
-
-# Start building the expression
-exp <- create_expression() %>%
-  # Subtract the following
-  SUB() %>%
-  add_term("apple") %>%
-  AND() %>%
-  # The following entries are added to the "SUB" level until you call "END()"
-  add_text("Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.") %>%
-  add_term("banana") %>%
-  END() %>%
-  END()
-
-knitr::kable(exp@expression)
-```
-
-You can build the expression using the `build_expression()` command
-
-```{r}
-exp %>%
-  build_expression()
-```
-
-As you can see, this is a messy query, but `do_fingerprint_expression()` knows how to handle it:
-
-```{r, echo=FALSE}
-# THIS IS TEMPORARY
-io <- exp %>% build_expression()
-io <- io[[1]]
-```
-
-```{r}
-expr <- do_fingerprint_expression(io)
-```

@@ -16,10 +16,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-`FinTxtUtils()` contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.
+`sfutils` contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.
 
 ```{r, eval=TRUE, echo=FALSE}
-suppressPackageStartupMessages(library(FinTxtUtils))
+suppressPackageStartupMessages(library(sfutils))
 suppressPackageStartupMessages(library(dplyr))
 ```
 
@@ -86,7 +86,6 @@ mm <- purrr::map2_df(methods, type, function(x, y) {
 })
 
 knitr::kable(mm)
-
 ```
 
 It is possible to compare a fingerprint to an entire collection by transforming the collection into a sparse binary matrix. This we can achieve using the canonical `as.matrix()` command in R:

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jasper Ginn" />
 
-<meta name="date" content="2018-05-17" />
+<meta name="date" content="2018-05-25" />
 
 <title>Use a variety of methods to compare fingerprints</title>
 
@@ -70,11 +70,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Use a variety of methods to compare fingerprints</h1>
 <h4 class="author"><em>Jasper Ginn</em></h4>
-<h4 class="date"><em>2018-05-17</em></h4>
+<h4 class="date"><em>2018-05-25</em></h4>
 
 
 
-<p><code>FinTxtUtils()</code> contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.</p>
+<p><code>sfutils</code> contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clean wd</span>
 <span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
 <span class="co"># Load data</span>
@@ -189,11 +189,11 @@ mtest &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(col_test)
 mtrain[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]
 <span class="co">#&gt; 5 x 8 sparse Matrix of class &quot;dgCMatrix&quot;</span>
 <span class="co">#&gt;                                      p1 p2 p3 p4 p5 p6 p7 p8</span>
-<span class="co">#&gt; c81bc09a-b017-4d26-885d-c4d8b7b1193c  .  .  .  1  .  .  1  1</span>
-<span class="co">#&gt; 117ad6db-f5a2-44f3-9409-10b5b3f81a40  .  .  .  .  .  .  .  1</span>
-<span class="co">#&gt; e91b1566-ff53-486a-b2b8-715056897e69  .  .  .  .  .  .  1  1</span>
-<span class="co">#&gt; 61791d14-c943-4321-8fe6-c9c51a667c85  .  .  .  .  .  .  .  1</span>
-<span class="co">#&gt; fc8c4e1c-5ee3-46c8-958a-1cc0f2660cb2  .  .  .  .  .  .  .  1</span></code></pre></div>
+<span class="co">#&gt; 125fb979-9f92-47ae-bf96-06b408169edf  .  .  .  1  .  .  1  1</span>
+<span class="co">#&gt; 9abd155e-1d30-4315-a872-200d1a95cb11  .  .  .  .  .  .  .  1</span>
+<span class="co">#&gt; 6e2fbf10-57af-4a28-8dc8-aa3d49c21291  .  .  .  .  .  .  1  1</span>
+<span class="co">#&gt; 63d4b328-4518-4e20-9431-70bb3c4c4e34  .  .  .  .  .  .  .  1</span>
+<span class="co">#&gt; 487e2756-8f2e-4318-b308-00b16b190a37  .  .  .  .  .  .  .  1</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare documents to another fingerprinted document</span>
 comp &lt;-<span class="st"> </span><span class="kw">do_compare</span>(mtrain, fps_train[[<span class="dv">1</span>]], <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>)
 
@@ -207,43 +207,43 @@ knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">as
 </thead>
 <tbody>
 <tr class="odd">
-<td>c81bc09a-b017-4d26-885d-c4d8b7b1193c</td>
+<td>125fb979-9f92-47ae-bf96-06b408169edf</td>
 <td align="right">1.0000000</td>
 </tr>
 <tr class="even">
-<td>117ad6db-f5a2-44f3-9409-10b5b3f81a40</td>
+<td>9abd155e-1d30-4315-a872-200d1a95cb11</td>
 <td align="right">0.3333333</td>
 </tr>
 <tr class="odd">
-<td>e91b1566-ff53-486a-b2b8-715056897e69</td>
+<td>6e2fbf10-57af-4a28-8dc8-aa3d49c21291</td>
 <td align="right">0.4420732</td>
 </tr>
 <tr class="even">
-<td>61791d14-c943-4321-8fe6-c9c51a667c85</td>
+<td>63d4b328-4518-4e20-9431-70bb3c4c4e34</td>
 <td align="right">0.3932927</td>
 </tr>
 <tr class="odd">
-<td>fc8c4e1c-5ee3-46c8-958a-1cc0f2660cb2</td>
+<td>487e2756-8f2e-4318-b308-00b16b190a37</td>
 <td align="right">0.5060976</td>
 </tr>
 <tr class="even">
-<td>ffd84656-5481-4f76-ba41-06e4f2f23a6f</td>
+<td>94e41525-5797-42a6-8f8e-7ea2abee47d1</td>
 <td align="right">0.3363821</td>
 </tr>
 <tr class="odd">
-<td>20b64969-36ba-4ce9-a569-06a4c740e92b</td>
+<td>325282a6-a66c-41cd-b0f7-1865d8e6efc5</td>
 <td align="right">0.4400407</td>
 </tr>
 <tr class="even">
-<td>f9460608-32be-4941-aad0-8ad4338d13a9</td>
+<td>cf5d3db4-89a0-4992-8220-198f7e8c5bdf</td>
 <td align="right">0.4359756</td>
 </tr>
 <tr class="odd">
-<td>d4213cb3-35ee-4556-ad23-02604b371b8a</td>
+<td>cd3a4cdc-9c87-4bd3-8158-3271a08a51ad</td>
 <td align="right">0.3953252</td>
 </tr>
 <tr class="even">
-<td>9aacb922-c008-47d6-b339-861ef62a950e</td>
+<td>dfc62156-9a58-48fd-b5ec-6d9976fd7b77</td>
 <td align="right">0.4654472</td>
 </tr>
 </tbody>
