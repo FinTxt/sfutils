@@ -74,8 +74,25 @@ setMethod("as.matrix", "Collection",
             uuids <- vapply(ent, function(x) uuid(x), "character")
             # Get fingerprints
             fps <- lapply(ent, function(x) fingerprint(x))
-            # In model maatrix
-            fp_positioned <- Matrix::Matrix(t(as.data.frame(fps)))
+            # Max length
+            fps_max_length <- max(vapply(fps, function(x) length(x), 1))
+            # Add NA values to entries that do not have the right length
+            fps_corr <- lapply(fps, function(x) {
+
+              if(length(x) == fps_max_length) {
+
+                x
+
+              } else {
+
+                c(x, rep(NA, fps_max_length - length(x)))
+
+              }
+
+            })
+
+            # To model matrix
+            fp_positioned <- Matrix::Matrix(t(as.data.frame(fps_corr)))
 
             # Positions
             positions <- 1:16384

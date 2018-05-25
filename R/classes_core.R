@@ -169,6 +169,9 @@
 
 Document <- function(text, ...) {
 
+  # Check that length is one
+  assertthat::assert_that(length(text) ==1,
+                          msg = "Only one document may be passed at a time.")
   # Check if length of text long enough
   assertthat::assert_that(nchar(text) >= 50,
                           msg = "Text is too short to fingerprint. Pass a longer text")

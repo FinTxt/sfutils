@@ -38,7 +38,7 @@ do_fingerprint_document <- function(x) {
                       res, x)
 
     # Pass to collection
-    res_doc <- Collection(entry_list = res_doc)
+    res_doc <- Collection(res_doc)
 
   } else { # Else single document
 

@@ -5,6 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ------------------------------------------------------------------------
+suppressPackageStartupMessages(library(sfutils))
 # Text from: https://www.reuters.com/article/us-indonesia-economy-cenbank/indonesia-central-bank-schedules-extra-board-meeting-for-wednesday-idUSKCN1IQ1R6?il=0
 txt <- "JAKARTA (Reuters) - Indonesia’s central bank will hold an additional meeting of its board of governors on Wednesday to discuss economic and monetary conditions, Bank Indonesia said in a statement on Friday. “The additional meeting will discuss recent economic and monetary conditions as well as future prospects,” the statement said. It did not elaborate. It said the meeting would not replace the regular monthly monetary policy meeting. The central bank on May 17 raised its benchmark interest rate for the first time since November 2014 in a bid to bolster the fragile rupiah and stem an outflow of capital. The currency has, however, remained weak and was trading near its lowest since October, 2015, this week."
 
@@ -58,7 +59,7 @@ Riyadh and Moscow are prepared to ease output cuts to calm consumer worries abou
   )
 )
 
-## ---- fig.show="hold", fig.height=6, fig.width = 6-----------------------
+## ---- fig.show="hold", fig.height=3, fig.width = 3-----------------------
 crude_term <- do_fingerprint_term("petroleum")
 plot(filt)
 plot(filt, crude_term)
@@ -86,7 +87,6 @@ texts_sim <- as.list(do_search_collection(fps, uuids_sim))
 
 # Get texts
 cat(text(texts_sim[[1]]))
-cat("\n")
 cat(text(texts_sim[[2]]))
 
 ## ------------------------------------------------------------------------
