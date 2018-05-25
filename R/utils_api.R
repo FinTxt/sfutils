@@ -89,7 +89,10 @@ fingerprint_multiple_texts <- function(text_list) {
                                retinaName = retina)
 
   # Encode each article
-  lst_encoded <- lapply(lst, function(x) reticulate::r_to_py(x))
+  lst_encoded <- lapply(text_list, function(x) {
+    obj <- reticulate::r_to_py(x)
+    obj$encode("utf-8")
+  })
   text_list_py <- reticulate::r_to_py(lst_encoded)
 
   # Get fingerprint
