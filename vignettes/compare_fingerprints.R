@@ -56,7 +56,9 @@ mm <- purrr::map2_df(methods, type, function(x, y) {
   data_frame(
     "metric" = x,
     "type" = y,
-    "value" = round(do_compare(fps_train[[1]], fps_train[[2]], method = x)[1,1],
+    "value" = round(do_compare(fps_train[[1]], 
+                               fps_train[[2]], 
+                               method = x)[1,1],
                     digits = 3)
   )
 })

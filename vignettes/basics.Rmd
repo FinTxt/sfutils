@@ -1,0 +1,256 @@
+---
+title: "Extended introduction to sfutils"
+author: "Jasper Ginn"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`sfutils` is built around the Python module `retinasdk`. It calls this module every time it needs to e.g. fingerprint a document. Some of the functionality that the API offers, such as fingerprint plots and fingerprint comparisons, are implemented natively in R.
+
+## Documents
+
+"Documents" are long texts (at least 50 characters). There are several ways to fingerprint a document. 
+
+```{r}
+# Text from: https://www.reuters.com/article/us-indonesia-economy-cenbank/indonesia-central-bank-schedules-extra-board-meeting-for-wednesday-idUSKCN1IQ1R6?il=0
+txt <- "JAKARTA (Reuters) - Indonesia’s central bank will hold an additional meeting of its board of governors on Wednesday to discuss economic and monetary conditions, Bank Indonesia said in a statement on Friday. “The additional meeting will discuss recent economic and monetary conditions as well as future prospects,” the statement said. It did not elaborate. It said the meeting would not replace the regular monthly monetary policy meeting. The central bank on May 17 raised its benchmark interest rate for the first time since November 2014 in a bid to bolster the fragile rupiah and stem an outflow of capital. The currency has, however, remained weak and was trading near its lowest since October, 2015, this week."
+```
+
+For example, you can use the class constructor for the Document class:
+
+```{r}
+doc <- Document(txt)
+doc
+```
+
+However, this is not the recommended procedure. It's more convenient to call `do_fingerprint_document()` because it's likely you want to fingerprint more than one text. This function will detect that and call the "bulk" endpoint, which is more efficient in fingerprinting multiple texts.
+
+```{r}
+doc <- do_fingerprint_document(txt)
+doc
+```
+
+Additionally, this function will return a Collection object if you pass more than one text.
+
+The one time that you should call `Document()` instead of `do_fingerprint_document()` is when you already *have* a fingerprint (and optionally a unique id) and you just want to construct a class.
+
+```{r}
+doc_fp <- fingerprint(doc)
+doc_uuid <- uuid(doc)
+
+# Create a Document
+doc <- Document(txt, fingerprint = doc_fp, uuid = doc_uuid)
+doc
+```
+
+In this case, the API is not called.
+
+## Terms
+
+A term is (mostly) a single word. The following excerpt is taken from the [Cortical documentation manual](http://documentation.cortical.io/working_with_terms.html))
+
+```
+The basic building blocks for performing semantic computations are the representations for single terms. Each Retina contains semantic representations (fingerprints) for a large number of terms, and this page describes how to retrieve these from the API. Furthermore we describe how to query the Retina for semantically similar terms, and retrieve a list of contexts in which a given term can occur.
+```
+
+A term can be fingerprinted by calling
+
+```{r}
+trm <- do_fingerprint_term("jaguar")
+```
+
+You can retrieve the context of a term
+
+```{r}
+cntxt <- get_context(trm)
+names(cntxt)
+```
+
+As well as similar terms
+
+```{r}
+trms <- get_similar_terms(trm)
+names(trms)
+```
+
+You can pass a specific context id or pos_types to make this more specific
+
+```{r}
+contextId <- cntxt$species$context_id
+trms <- get_similar_terms(trm, contextId = contextId)
+names(trms)
+```
+
+Note that you **must** pass the contextId as an integer in the following format: "<integer>L", e.g. '2L' or '0L'
+
+## Expressions
+
+The following exerpt is taken from the [Cortical documentation](http://documentation.cortical.io/the_power_of_expressions.html)
+
+```text
+As briefly mentioned in the introduction, semantically meaningful operations can be carried out on fingerprints by performing simple binary operations on the positions of the fingerprints. Semantic relationships between fingerprints can be discovered by looking at their overlapping positions in the semantic space. This allows us, for example, to subtract the meaning of one term from the meaning of another term to obtain a more specific representation. In the /expressions endpoint, we offer these binary operations on the fingerprints and, along with this, a flexible way of specifying the input data.
+```
+
+The functionality for expressions is similar as that of terms, with the difference that `get_context()` and `get_similar_terms()` may also be called on Collections of semantic expressions.
+
+Similarly to the Document class, Expressions can also be passed as a list to be fingerprinted in bulk. 
+
+For more information about constructing semantic expressions, check the 'Create semantic expressions' vignette.
+
+## Category filters
+
+The following exerpt is taken from the [Cortical documentation](http://documentation.cortical.io/classification.html)
+
+```text
+This endpoint allows the user to create category filters, simply and easily, using only a small number of example texts. The newly created category filters can then be used as part of a classification process, where items to be classified can be compared against the category filters using our /compare and/or /compare/bulk endpoints (which you can see in our interactive API documentation). See our similarity metrics' guide for information on how to interpret the output from the compare endpoints.
+```
+
+A category filter can be created by calling `do_create_filter()` with a filter name, positive examples and optional negative examples
+
+```{r}
+# Sources
+# https://www.reuters.com/article/us-oil-opec-exclusive/opec-russia-prepared-to-raise-oil-output-under-u-s-pressure-idUSKCN1IQ0Q6
+# https://www.reuters.com/article/us-opec-meeting-cuts-duration/opec-non-opec-ministers-recommend-9-month-oil-cut-extension-idUSKBN1DT2HA
+# https://www.reuters.com/article/us-opec-oil-barkindo/opecs-barkindo-says-opec-non-opec-agreement-rescued-oil-industry-idUSKBN1HR1VE
+# https://www.reuters.com/article/us-oil-opec/more-countries-needed-in-opec-non-opec-pact-uaes-al-mazrouei-idUSKBN1HR0O6
+filt <- do_create_filter(
+  "crude",
+  positive = c(
+    "ST PETERSBURG/DUBAI (Reuters) - Saudi Arabia and Russia are discussing raising OPEC and non-OPEC oil production by some 1 million barrels a day, sources said, while OPEC’s chief said a complaint from U.S. President Donald Trump over high prices had triggered the idea of upping output. FILE PHOTO: A flag with the Organization of the Petroleum Exporting Countries (OPEC) logo is seen during a meeting of OPEC and non-OPEC producing countries in Vienna, Austria September 22, 2017. REUTERS/Leonhard Foeger/File Photo
+Riyadh and Moscow are prepared to ease output cuts to calm consumer worries about supply adequacy, their energy ministers said on Friday, with Saudi Arabia’s Khalid al-Falih adding that any such move would be gradual so as not to shock the market. Raising production would ease 17 months of strict supply curbs amid concerns that a price rally has gone too far, with oil LCOc1 having hit its highest since late 2014 at $80.50 a barrel this month. OPEC began a discussion about easing production cuts following a critical tweet from Trump, OPEC’s Secretary-General Mohammad Barkindo said. Trump tweeted last month that OPEC had “artificially” boosted oil prices.",
+  "VIENNA (Reuters) - A ministerial committee of OPEC and non-OPEC producers including Russia and Saudi Arabia recommended on Wednesday that OPEC and non-OPEC allies extend oil production cuts by nine months at a meeting the following day. Russian Energy Minister Alexander Novak arrives for a meeting with OPEC oil ministers at OPEC's headquarters in Vienna, Austria, November 29, 2017. REUTERS/Heinz-Peter Bader
+“That’s one of the recommendations,” Kuwait’s Oil Minister Essam al-Marzouq told reporters when asked whether the committee had agreed on a nine-month extension. An OPEC source also confirmed that the ministerial meeting agreed with the earlier proposal to extend production cuts until the end of 2018.",
+  "JEDDAH, Saudi Arabia (Reuters) - OPEC Secretary-General Mohammad Barkindo said on Friday members of the oil producers group were friends of the United States and have a vested interest in its growth and prosperity.Barkindo made his remarks after U.S. President Donald Trump earlier sent a tweet criticizing OPEC over high oil prices. “The Declaration of Cooperation entered into by 24 producing countries in Dec. 2016 and implemented faithfully since 2017 has not only arrested the decline but rescued the oil industry from imminent collapse,” Barkindo said.",
+  "FRANKFURT (Reuters) - Further oil producers need to join Organization of the Petroleum Exporting Countries (OPEC) and non-OPEC producers in curbing supply, UAE oil minister Suhail Mohamed Al Mazrouei told a German newspaper. OPEC members, Russia and other non-OPEC producers have reduced output since January 2017 aiming to reduce inventories and support prices. The pact runs until the end of this year, and an OPEC meeting in June in Vienna will see participants decide their next course of action."
+  )
+)
+```
+
+You can call the same standard methods (such as plots) on category filters
+
+```{r, fig.show="hold", fig.height=6, fig.width = 6}
+crude_term <- do_fingerprint_term("petroleum")
+plot(filt)
+plot(filt, crude_term)
+```
+
+Comparing a category filter is the same as with the other classes. 
+
+```{r}
+data("fps_train")
+fps <- as.collection(fps_train$fingerprints)
+# To collection --> binary matrix
+fps_col <- as.matrix(fps)
+
+# Compare documents
+cmp <- do_compare(fps_col, filt)
+# To data.frame
+cmp_df <- as.data.frame(cmp)
+names(cmp_df) <- "filter"
+
+# Order
+ordrd <- order(cmp_df$filter, decreasing = TRUE)
+
+# Get uuids of 10 most similar documents
+uuids_sim <- row.names(cmp_df)[ordrd[1:10]]
+
+# Retrieve texts for those documents
+texts_sim <- as.list(do_search_collection(fps, uuids_sim))
+
+# Get texts
+cat(text(texts_sim[[1]]))
+cat("\n")
+cat(text(texts_sim[[2]]))
+```
+
+## Collections
+
+Collections are used to group multiple expressions, terms, and documents. While it is certainly possible to create a Collection that contains a mixture of these classes, it is not recommended. Instead, create different collections for different classes.
+
+There are several ways to create a Collection. Regardless of the method you choose to create a collection, you must *always* first create a list that contains fingerprint-related class objects.
+
+```{r}
+data("fps_train")
+tmp <- fps_train$fingerprints[1:10]
+# Print a small subset
+str(head(tmp))
+```
+
+Notice that this is a list containing several Document objects.
+
+```{r}
+# Turn the list into a collection
+col <- as.collection(tmp)
+col
+```
+
+You may also directly call the class constructor, although this is not recommended
+
+```{r}
+col <- Collection(tmp)
+col
+```
+
+A collection object is essentially a list, so you can treat them as such
+
+```{r}
+# Index
+col[[1]]
+```
+
+If you subset a Collection, then you must turn the resulting subset into a new Collection object
+
+```{r}
+# Subset
+col_ss <- col[1:5]
+is(col_ss) # Not a Collection object
+
+col_ss <- as.collection(col_ss)
+```
+
+A collection can be turned into a normal list by doing either one of the following
+
+```{r}
+col_unlist <- as.list(col)
+col_unlist <- entries(col) # We use this function to retrieve the list stored in the entries slot of the S4 class
+```
+
+A helpful feature of Collections is that they can be searched for a specific unique id
+
+```{r}
+id <- uuid(entries(col)[[6]])
+do_search_collection(col, id)
+```
+
+You can also search for multiple ids
+
+```{r}
+ids <- c(uuid(entries(col)[[6]]), uuid(entries(col)[[7]]))
+do_search_collection(col, ids)
+```
+
+You can turn a Collection into a sparse binary matrix using the following command
+
+```{r}
+col_sbm <- as.matrix(col)
+col_sbm[1:5, 1:5]
+```
+
+This returns an object of class [dgCMatrix](https://stat.ethz.ch/R-manual/R-devel/library/Matrix/html/dgCMatrix-class.html) from the [Matrix](https://cran.r-project.org/package=Matrix) library. This matrix can be used to compare the documents to some reference fingerprint
+
+```{r}
+ref <- do_fingerprint_term("petroleum")
+do_compare(col_sbm, ref)
+```
+
