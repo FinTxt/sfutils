@@ -220,30 +220,40 @@ setMethod("plot",
           })
 
 # SPECIFIC METHODS -----
+
+setMethod("as.collection",
+          "list",
+          function(list) {
+
+            Collection(list)
+
+          })
+
 # API METHODS ----
 
-#' @param type either one of 'Expression' or 'Term'
-#'
 #' @rdname get_context-methods
 #'
 #' @importFrom jsonlite toJSON
 
 setMethod("get_context",
           "Collection",
-          function(object, type = c("Expression", "Term")) {
-
-            type <- match.arg(type)
+          function(object) {
 
             # Get any expressions from Collection
-            is_expression <- vapply(entries(object),
-                                    function(x) is(x)[1] == type,
-                                    TRUE)
+            is_allowed_type <- vapply(entries(object),
+                                      function(x) is(x)[1] == "Expression",
+                                      TRUE)
 
-            # Get elements that are Expressions
-            which_expression <- which(is_expression)
+            # Get elements that are of allowed type
+            which_allowed <- which(is_allowed_type)
+
+            # If null, emit error
+            if(length(which_allowed) == 0) {
+              stop("No semantic expressions for which to retrieve context")
+            }
 
             # Subset and back to Collection
-            subs <- Collection(object[which_expression])
+            subs <- Collection(object[which_allowed])
 
             # Get uuids for these elements
             uuids_expression <- vapply(entries(subs),
@@ -260,8 +270,10 @@ setMethod("get_context",
                                          apiServer = server,
                                          retinaName = retina)
 
-            # Dump expressions to json
+            # Dump to json
             body <- lapply(entries(subs), function(x) sfexpression(x))
+
+            # To json
             body_json <- jsonlite::toJSON(body, auto_unbox = TRUE)
 
             # Get fingerprint
@@ -273,19 +285,30 @@ setMethod("get_context",
 
             # Unlist
             res_unlist_mult <- mapply(function(x, y) {
-                                             list(
+
+                                             lst <- list(
                                                "uuid" = x,
                                                "contexts" = lapply(y, function(z) {
-                                                 list(
+
+                                                 tmp <- list(
                                                    "context_id" = z$context_id,
                                                    "context_label" = z$context_label,
                                                    "fingerprint" = z$fingerprint$positions
                                                  )
+
                                                })
                                              )
+
+                                             nms <- lapply(y, function(z) z$context_label)
+
+                                             names(lst$contexts) <- nms
+
+                                             lst
+
                                            },
                                       uuids_expression,
-                                      res)
+                                      res,
+                                      SIMPLIFY = FALSE)
 
             # Names
             names(res_unlist_mult) <- uuids_expression
@@ -294,3 +317,93 @@ setMethod("get_context",
             res_unlist_mult
 
           })
+
+#' @rdname get_terms-methods
+#'
+#' @importFrom jsonlite toJSON
+
+setMethod("get_context",
+          "Collection",
+          function(object) {
+
+            # Get any expressions from Collection
+            is_allowed_type <- vapply(entries(object),
+                                      function(x) is(x)[1] == "Expression",
+                                      TRUE)
+
+            # Get elements that are of allowed type
+            which_allowed <- which(is_allowed_type)
+
+            # If null, emit error
+            if(length(which_allowed) == 0) {
+              stop("No semantic expressions for which to retrieve terms")
+            }
+
+            # Subset and back to Collection
+            subs <- Collection(object[which_allowed])
+
+            # Get uuids for these elements
+            uuids_expression <- vapply(entries(subs),
+                                       function(x) uuid(x),
+                                       "character")
+
+            # Get key
+            key <- Sys.getenv("CORTICAL_API_KEY")
+            server <- Sys.getenv("CORTICAL_SERVER")
+            retina <- Sys.getenv("CORTICAL_RETINA")
+
+            # Register
+            conn <- retinasdk$FullClient(key,
+                                         apiServer = server,
+                                         retinaName = retina)
+
+            # Dump to json
+            body <- lapply(entries(subs), function(x) sfexpression(x))
+
+            # To json
+            body_json <- jsonlite::toJSON(body, auto_unbox = TRUE)
+
+            # Get fingerprint
+            res <- conn$getSimilarTermsForExpressions(
+              body_json,
+              getFingerprint = TRUE,
+              maxResults = 10L
+            )
+
+            # Unlist
+            res_unlist_mult <- mapply(function(x, y) {
+
+              lst <- list(
+                "uuid" = x,
+                "terms" = lapply(y, function(z) {
+
+                  tmp <- list(
+                    "df" = z$df,
+                    "fingerprint" = z$fingerprint$positions,
+                    "pos_types" = z$pos_types,
+                    "score" = z$score,
+                    "term" = z$term
+                  )
+
+                })
+              )
+
+              nms <- lapply(y, function(z) z$term)
+
+              names(lst$terms) <- nms
+
+              lst
+
+            },
+            uuids_expression,
+            res,
+            SIMPLIFY = FALSE)
+
+            # Names
+            names(res_unlist_mult) <- uuids_expression
+
+            # Return
+            res_unlist_mult
+
+          })
+

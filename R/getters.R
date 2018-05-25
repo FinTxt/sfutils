@@ -7,9 +7,9 @@
 
 # GENERICS -----
 
-#' Get slots from FinTxtUtuls classes
+#' Get slots from sfutils classes
 #'
-#' These functions retrieve slots from FinTxtUtuls classes (Fingerprint, Term, Document, Expression, Collection).
+#' These functions retrieve slots from sfutils classes (Fingerprint, Term, Document, Expression, Collection).
 #'
 #' @param object a class object containing the slot
 #'

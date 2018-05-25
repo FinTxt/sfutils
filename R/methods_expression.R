@@ -111,7 +111,7 @@ setMethod("get_context",
 
 #' @rdname get_similar_terms-methods
 #'
-#' @seealso \href{http://documentation.cortical.io/working_with_terms.html}{This} page for more information about contexts and terms
+#' @seealso \href{http://documentation.cortical.io/the_power_of_expressions.html}{This} page for more information about contexts and expressions
 #'
 #' @export
 #'
