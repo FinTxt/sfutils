@@ -16,5 +16,69 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Cortical API requires semantic expression to be written in a format that is not native to R. This document shows how to construct semantic expressions in R.
+The Cortical API requires semantic expression to be written in a format that is not native to R. This document shows the general procedure to construct semantic expressions in R. For more information, check the [Cortical documentation](http://documentation.cortical.io/the_power_of_expressions.html)
 
+## Constructing semantic expressions
+
+Take a look at the following two examples from the Cortical documentation:
+
+```json
+{
+     "term" : "apple"
+}
+```
+
+and
+
+```json
+{
+  "sub" : [
+    {
+      "term" : "apple"
+    },
+    {
+      "text" : "Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems."
+    }
+  ]
+}
+```
+
+This looks (and is) a bit complicated, but in general, the rules are like this:
+
+1. If you use one term, text or array of positions, then you can use a simple named list:
+
+```{r}
+exp <- list(
+  "term" = "apple"
+)
+```
+
+2. If you use an operator, you should name the operator, its value should be a list, and each element of this list should be a list:
+
+```{r}
+exp <- list(
+  # Named operator
+  "sub" = list( # ... whose value is a list
+    list("term" = "apple"), # ... each element has its own list.
+    list("text" = "Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.")
+  )
+)
+```
+
+3. If you want to POST multiple expressions to the API, then you must construct a list in which each individual expression is an unnamed list:
+
+```{r}
+exp <- list(
+  # Each element is an unname list
+  list(
+    "term" = "apple"
+  ),
+  # Second element
+  list(
+    "sub" = list( 
+      list("term" = "apple"), 
+      list("text" = "Mac OS is a series of graphical user interface-based operating systems developed by Apple Inc. for their Macintosh line of computer systems.")
+    )
+  )
+)
+```
