@@ -44,4 +44,7 @@ test_that("We can fingerprint an Expression and it contains the right number of 
   # There should be 10 elements
   expect_length(trms, 10)
 
+  # Can we plot?
+  pl <- plot(trm)
+
 })
