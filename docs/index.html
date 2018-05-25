@@ -126,9 +126,9 @@
 
     
     
-<div id="what-is-it" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-is-it" class="anchor"></a>What is it?</h2>
+<div id="what-is-it" class="section level3">
+<h3 class="hasAnchor">
+<a href="#what-is-it" class="anchor"></a>What is it?</h3>
 <p>The goal of <code>sfutils</code> is to provide code and documentation on working with <a href="http://www.cortical.io/technology_semantic.html">semantic fingerprints</a> in R.</p>
 <p>It does this by:</p>
 <ul>
@@ -137,9 +137,9 @@
 <li>providing methods and functions that make it easy to compare fingerprints, convert fingerprints to sparse binary matrices, plot fingerprints etc.</li>
 </ul>
 </div>
-<div id="awesome-what-do-i-need-to-do-to-install-this-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#awesome-what-do-i-need-to-do-to-install-this-package" class="anchor"></a>Awesome! What do I need to do to install this package?</h2>
+<div id="awesome-what-do-i-need-to-do-to-install-this-package" class="section level3">
+<h3 class="hasAnchor">
+<a href="#awesome-what-do-i-need-to-do-to-install-this-package" class="anchor"></a>Awesome! What do I need to do to install this package?</h3>
 <p>First things first: have you heard of the reticulate library? It provides a pretty straightforward API to run Python code in R and convert objects between these two languages. <code>sfutils</code> uses the reticulate package to communicate with Python.</p>
 <p>This package uses Python 3.x and the <code>retinasdk</code> module. If you haven’t yet installed Python 3, go ahead and do so. Make sure to also install <code>pip</code>. Generally, I find it easiest to install the <a href="https://www.anaconda.com/download/">Anaconda</a> distribution.</p>
 <p>When you’ve installed Python and pip, execute the following in a terminal:</p>
@@ -147,15 +147,10 @@
 <p>You can then install the latest version of <code>sfutils</code> from GitHub using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"JasperHG90/sfutils"</span>)</code></pre></div>
 <p>If you don’t have the devtools library installed, execute <code>install.packages("devtools")</code> first.</p>
-<div id="running-sfutils-inside-a-docker-container" class="section level3">
+</div>
+<div id="im-all-set-how-do-i-get-started" class="section level3">
 <h3 class="hasAnchor">
-<a href="#running-sfutils-inside-a-docker-container" class="anchor"></a>Running sfutils inside a Docker container</h3>
-<p>Can I use this in a docker container?</p>
-</div>
-</div>
-<div id="im-all-set-how-do-i-get-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#im-all-set-how-do-i-get-started" class="anchor"></a>I’m all set! How do I get started?</h2>
+<a href="#im-all-set-how-do-i-get-started" class="anchor"></a>I’m all set! How do I get started?</h3>
 <p>Go ahead and load the package</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))</code></pre></div>
 <p>The first thing to do is to set your API key, the server url and retina name as environment variables. If you’re using the free API, you can just set your key and forget about the other two options.</p>
@@ -186,7 +181,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  70b83a68-63e5-4700-b712-739e06a9d384
+##  unique id:  20f8cf0a-e17b-4a9b-adb6-dd47d3757d65
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -201,11 +196,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## 70b83a68-63e5-4700-b712-739e06a9d384  .  .  .  .  .
-## f079b687-be4a-4b44-be49-74e88392b1f6  .  .  .  .  .
-## f2242396-4d5c-440e-99db-b6bad0de72f1  .  .  .  .  .
-## c597299a-135c-4fda-bf33-467352909cad  .  .  .  1  .
-## 8b0b8e38-5d77-469c-b7e7-cb6f6d0dcd5e  1  1  1  1  .</code></pre>
+## 20f8cf0a-e17b-4a9b-adb6-dd47d3757d65  .  .  .  .  .
+## 590911f1-b5f1-4029-8576-1d0af826c729  .  .  .  .  .
+## 025ac13c-e452-4a61-b4c8-b096b9703036  .  .  .  .  .
+## 2a53a403-93b4-4891-9937-be5a16e70706  .  .  .  1  .
+## cf5ecb75-6733-478f-a5d2-f1ae9be6ac91  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -320,9 +315,9 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <p><img src="plots/dendo2.png" width="80%/"></p>
 <p>For more examples, check out the vignettes.</p>
 </div>
-<div id="whats-the-performance-like" class="section level2">
-<h2 class="hasAnchor">
-<a href="#whats-the-performance-like" class="anchor"></a>What’s the performance like?</h2>
+<div id="whats-the-performance-like" class="section level3">
+<h3 class="hasAnchor">
+<a href="#whats-the-performance-like" class="anchor"></a>What’s the performance like?</h3>
 <p>That depends on your use case. If you want to work with &gt;10K documents and need to use this in a production environment, then performance probably isn’t great. If you don’t care about execution times that much then you can easily use this package for 100K+ documents. Check the graph below for an indication of performance.</p>
 <p><img src="plots/speed.png" width="80%/"></p>
 <p><code>as.matrix()</code> takes roughly 10 minutes for 100.000 documents and takes up 1.1GB of space comparing a document to 100.000 documents takes roughly 6 minutes. By comparison, this operation takes +- 25 seconds on a collection of 10.000 documents (size is +-123MB).</p>
