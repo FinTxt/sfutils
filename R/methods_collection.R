@@ -256,7 +256,7 @@ setMethod("do_search_collection",
 
             # Return
             if(uuid_length == 1) {
-              subs
+              subs[[1]]
             } else {
               as.collection(subs)
             }

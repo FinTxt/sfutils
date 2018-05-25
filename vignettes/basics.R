@@ -63,3 +63,75 @@ crude_term <- do_fingerprint_term("petroleum")
 plot(filt)
 plot(filt, crude_term)
 
+## ------------------------------------------------------------------------
+data("fps_train")
+fps <- as.collection(fps_train$fingerprints)
+# To collection --> binary matrix
+fps_col <- as.matrix(fps)
+
+# Compare documents
+cmp <- do_compare(fps_col, filt)
+# To data.frame
+cmp_df <- as.data.frame(cmp)
+names(cmp_df) <- "filter"
+
+# Order
+ordrd <- order(cmp_df$filter, decreasing = TRUE)
+
+# Get uuids of 10 most similar documents
+uuids_sim <- row.names(cmp_df)[ordrd[1:10]]
+
+# Retrieve texts for those documents
+texts_sim <- as.list(do_search_collection(fps, uuids_sim))
+
+# Get texts
+cat(text(texts_sim[[1]]))
+cat("\n")
+cat(text(texts_sim[[2]]))
+
+## ------------------------------------------------------------------------
+data("fps_train")
+tmp <- fps_train$fingerprints[1:10]
+# Print a small subset
+str(head(tmp))
+
+## ------------------------------------------------------------------------
+# Turn the list into a collection
+col <- as.collection(tmp)
+col
+
+## ------------------------------------------------------------------------
+col <- Collection(tmp)
+col
+
+## ------------------------------------------------------------------------
+# Index
+col[[1]]
+
+## ------------------------------------------------------------------------
+# Subset
+col_ss <- col[1:5]
+is(col_ss) # Not a Collection object
+
+col_ss <- as.collection(col_ss)
+
+## ------------------------------------------------------------------------
+col_unlist <- as.list(col)
+col_unlist <- entries(col) # We use this function to retrieve the list stored in the entries slot of the S4 class
+
+## ------------------------------------------------------------------------
+id <- uuid(entries(col)[[6]])
+do_search_collection(col, id)
+
+## ------------------------------------------------------------------------
+ids <- c(uuid(entries(col)[[6]]), uuid(entries(col)[[7]]))
+do_search_collection(col, ids)
+
+## ------------------------------------------------------------------------
+col_sbm <- as.matrix(col)
+col_sbm[1:5, 1:5]
+
+## ------------------------------------------------------------------------
+ref <- do_fingerprint_term("petroleum")
+do_compare(col_sbm, ref)
+

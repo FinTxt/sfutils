@@ -46,6 +46,7 @@ articles:
     desc: >
       How to use the package and its core functions.
     contents:
+      - basics
       - plotting
       - construct_expressions
       - compare_fingerprints
@@ -96,10 +97,11 @@ reference:
       - do_slice_document
       - do_tokenize
       - get_similar_terms
+      - do_search_collection
 
   - title: "Getters"
     desc: >
-      Simple functions that retrieve slots from objects
+      Simple functions that retrieve slots from S4 class objects
     contents:
       - uuid
       - type

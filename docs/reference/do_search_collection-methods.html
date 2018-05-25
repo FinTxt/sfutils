@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • sfutils</title>
+<title>Search a collection for one or multiple unique ids — do_search_collection • sfutils</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,7 +28,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Search a collection for one or multiple unique ids — do_search_collection" />
+
+<meta property="og:description" content="Search a collection for one or multiple unique ids" />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -43,7 +46,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -148,20 +151,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Search a collection for one or multiple unique ids</h1>
+    <small class="dont-index">Source: <a href='https://github.com/JasperHG90/sfutils.git/blob/master/R/generics.R'><code>R/generics.R</code></a>, <a href='https://github.com/JasperHG90/sfutils.git/blob/master/R/methods_collection.R'><code>R/methods_collection.R</code></a></small>
+    <div class="hidden name"><code>do_search_collection-methods.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>Core package functionality</h3>
-      <p class="section-desc"><p>How to use the package and its core functions.</p></p>
-
-      <ul>
-        <li><a href="basics.html">Extended introduction to sfutils</a></li>
-        <li><a href="plotting.html">Plotting fingerprints</a></li>
-        <li><a href="construct_expressions.html">Create semantic expressions</a></li>
-        <li><a href="compare_fingerprints.html">Use a variety of methods to compare fingerprints</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>Search a collection for one or multiple unique ids</p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>do_search_collection</span>(<span class='no'>obj</span>, <span class='no'>uuid</span>)
+
+<span class='co'># S4 method for Collection</span>
+<span class='fu'>do_search_collection</span>(<span class='no'>obj</span>, <span class='no'>uuid</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>obj</th>
+      <td><p>Collection object to search in</p></td>
+    </tr>
+    <tr>
+      <th>uuid</th>
+      <td><p>one or multiple unique ids to search for</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Object of class <code><a href='Collection-class.html'>Collection</a></code> containing the objects that were searched for</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># Get data</span>
+<span class='fu'>data</span>(<span class='st'>"company_descriptions"</span>)
+
+<span class='co'># Put text in a list</span>
+<span class='no'>txt</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>company_descriptions</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span>$<span class='no'>desc</span>)
+
+<span class='co'># Fingerprint documents</span>
+<span class='no'>txt_fp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='do_fingerprint_document.html'>do_fingerprint_document</a></span>(<span class='fu'>unname</span>(<span class='no'>txt</span>))
+
+<span class='co'># Search for</span>
+<span class='co'># }</span></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 

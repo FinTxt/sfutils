@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, fig.height=5, fig.width=5)
 ```
 
-## What is it?
+### What is it?
 
 The goal of `sfutils` is to provide code and documentation on working with [semantic fingerprints](http://www.cortical.io/technology_semantic.html) in R. 
 
@@ -19,7 +19,7 @@ It does this by:
 - implementing an object-oriented approach to working with semantic fingerprints in R.
 - providing methods and functions that make it easy to compare fingerprints, convert fingerprints to sparse binary matrices, plot fingerprints etc.
 
-## Awesome! What do I need to do to install this package?
+### Awesome! What do I need to do to install this package?
 
 First things first: have you heard of the reticulate library? It provides a pretty straightforward API to run Python code in R and convert objects between these two languages. `sfutils` uses the reticulate package to communicate with Python. 
 
@@ -33,17 +33,13 @@ pip install retinasdk
 
 You can then install the latest version of `sfutils` from GitHub using:
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 devtools::install_github("JasperHG90/sfutils")
 ```
 
 If you don't have the devtools library installed, execute `install.packages("devtools")` first.
 
-### Running sfutils inside a Docker container
-
-Can I use this in a docker container?
-
-## I'm all set! How do I get started?
+### I'm all set! How do I get started?
 
 Go ahead and load the package
 
@@ -232,7 +228,7 @@ plot(clust)
 
 For more examples, check out the vignettes.
 
-## What's performance like?
+### What's the performance like?
 
 That depends on your use case. If you want to work with >10K documents and need to use this in a production environment, then performance probably isn't great. If you don't care about execution times that much then you can easily use this package for 100K+ documents. Check the graph below for an indication of performance.
 
