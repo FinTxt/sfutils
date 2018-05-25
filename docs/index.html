@@ -181,7 +181,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  20f8cf0a-e17b-4a9b-adb6-dd47d3757d65
+##  unique id:  7f72c011-28f7-4889-828c-bca207514826
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -196,11 +196,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## 20f8cf0a-e17b-4a9b-adb6-dd47d3757d65  .  .  .  .  .
-## 590911f1-b5f1-4029-8576-1d0af826c729  .  .  .  .  .
-## 025ac13c-e452-4a61-b4c8-b096b9703036  .  .  .  .  .
-## 2a53a403-93b4-4891-9937-be5a16e70706  .  .  .  1  .
-## cf5ecb75-6733-478f-a5d2-f1ae9be6ac91  1  1  1  1  .</code></pre>
+## 7f72c011-28f7-4889-828c-bca207514826  .  .  .  .  .
+## 483f5a16-22c2-401b-adb4-eebcb644af33  .  .  .  .  .
+## c55f01b4-4fbc-4353-9486-e473689b0304  .  .  .  .  .
+## 91ff1e81-414b-4815-a912-73c9232d9d35  .  .  .  1  .
+## 4414dfd3-e87f-45b6-8829-36714d0cfa4b  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
