@@ -19,6 +19,7 @@ python:
 
 r_packages:
   - covr
+  - xml2
 
 after_success:
   - Rscript -e 'library(covr); codecov()'

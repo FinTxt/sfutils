@@ -138,7 +138,6 @@
 <a href="#im-all-set-how-do-i-get-started" class="anchor"></a>I’m all set! How do I get started?</h3>
 <p>Go ahead and load the package</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))</code></pre></div>
-<pre><code>## No cortical key registered. Execute 'Sys.setenv('CORTICAL_API_KEY' = '&lt;your-key&gt;')' to set your credentials.</code></pre>
 <p>The first thing to do is to set your API key, the server url and retina name as environment variables. If you’re using the free API, you can just set your key and forget about the other two options.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set credentials</span>
 <span class="kw">Sys.setenv</span>(<span class="st">"CORTICAL_SERVER"</span> =<span class="st"> "http://api.cortical.io/rest"</span>) <span class="co"># Optional</span>
@@ -167,7 +166,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  545e5261-c0f3-4d06-b015-afc01f611ca5
+##  unique id:  0aae3e6e-8d77-4d55-ae27-4c4d0f3c6a06
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -182,11 +181,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## 545e5261-c0f3-4d06-b015-afc01f611ca5  .  .  .  .  .
-## 9c5f1acb-f39a-45ae-b4f8-415028c0dc98  .  .  .  .  .
-## 8a0bb764-aa5c-4bbe-bda5-d122331903db  .  .  .  .  .
-## 68c6ca0c-0514-4d4f-bee2-093f06c5257e  .  .  .  1  .
-## 58db813d-6efe-4def-9c91-7d03b8d4e482  1  1  1  1  .</code></pre>
+## 0aae3e6e-8d77-4d55-ae27-4c4d0f3c6a06  .  .  .  .  .
+## 827649fd-0289-4eec-9513-4f3b6952efdf  .  .  .  .  .
+## 644fa087-ea1e-43db-bddc-488bd609a27b  .  .  .  .  .
+## 22bea8c0-29b6-49cc-b78e-299c31cc6b41  .  .  .  1  .
+## 1616fa32-5b35-48e0-93a4-183045447fce  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -342,7 +341,7 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <ul class="list-unstyled">
 <li><a href="http://www.repostatus.org/#inactive"><img src="http://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows."></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="https://travis-ci.org/JasperHG90/sfutils"><img src="https://api.travis-ci.com/JasperHG90/sfutils.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://travis-ci.com/JasperHG90/sfutils"><img src="https://travis-ci.com/JasperHG90/sfutils.svg?token=pcr5vqKcs9MFoH1thkwe&amp;branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/gh/JasperHG90/sfutils"><img src="https://codecov.io/gh/JasperHG90/sfutils/branch/master/graphs/badge.svg" alt="CODECOV"></a></li>
 <li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.1.0-6666ff.svg" alt="minimal R version"></a></li>
 <li><a href="https://cran.r-project.org/package=sfutils"><img src="http://www.r-pkg.org/badges/version/sfutils" alt="CRAN_Status_Badge"></a></li>

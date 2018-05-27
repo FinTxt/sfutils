@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 All objects with a semantic fingerprint can be plotted. For example:
 
-```{r, fig.show="hold", fig.width=3, fig.height=3}
+```{r, fig.show="hold", fig.width=4, fig.height=4}
 suppressPackageStartupMessages(library(sfutils))
 library(ggplot2)
 # Take a company description
@@ -63,15 +63,20 @@ plot(ahold, unilever) + ggtitle("Ahold (red) v. Unilever (black)")
 
 For terms and expressions, you can retrieve the context and terms, and plot these.
 
-```{r, fig.show="hold", fig.width=3, fig.height=3}
+```{r, eval=TRUE}
 trm_cont <- get_context(trm)
 trm_terms <- get_similar_terms(trm)
 
 expr_cont <- get_context(expr)
 expr_terms <- get_similar_terms(expr)
+```
 
+```{r, fig.show="hold", fig.width=4, fig.height=4, echo=FALSE}
 plot(trm, contexts = trm_cont) + ggtitle("term context")
 plot(trm, terms = trm_terms) + ggtitle("term similar terms")
+```
+
+```{r, fig.show="hold", fig.width=4, fig.height=4, echo=FALSE}
 plot(expr, contexts = expr_cont) + ggtitle("expression context")
 plot(expr, terms = expr_terms) + ggtitle("expression similar terms")
 ```

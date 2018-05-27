@@ -119,7 +119,6 @@
     
     
 <p><code>sfutils</code> contains a variety of distance and similarity metrics to compare fingerprints and collections of fingerprints. This vignette explores these methods and how to use them.</p>
-<pre><code>#&gt; No cortical key registered. Execute 'Sys.setenv('CORTICAL_API_KEY' = '&lt;your-key&gt;')' to set your credentials.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clean wd</span>
 <span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
 <span class="co"># Load data</span>
@@ -160,16 +159,23 @@ methods &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st"
   <span class="st">"dennis"</span>, <span class="st">"sorgenfrei"</span>, <span class="st">"lancewilliams"</span>, <span class="st">"euclid"</span>, <span class="st">"hamming"</span>)
 type &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">"similarity"</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">"distance"</span>, <span class="dv">3</span>))
 <span class="co"># Compute for all methods</span>
-mm &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">map2_df</a></span>(methods, type, <span class="cf">function</span>(x, y) {
-  <span class="kw">data_frame</span>(
+mm &lt;-<span class="st"> </span><span class="kw">mapply</span>(<span class="cf">function</span>(x, y) {
+    <span class="kw">data.frame</span>(
     <span class="st">"metric"</span> =<span class="st"> </span>x,
     <span class="st">"type"</span> =<span class="st"> </span>y,
     <span class="st">"value"</span> =<span class="st"> </span><span class="kw">round</span>(<span class="kw"><a href="../reference/do_compare-methods.html">do_compare</a></span>(fps_train[[<span class="dv">1</span>]], 
                                fps_train[[<span class="dv">2</span>]], 
                                <span class="dt">method =</span> x)[<span class="dv">1</span>,<span class="dv">1</span>],
                     <span class="dt">digits =</span> <span class="dv">3</span>)
-  )
-})
+      )
+    },
+    methods,
+    type,
+    <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># To data frame</span>
+mm &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind.data.frame, mm)
+<span class="kw">row.names</span>(mm) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>
 
 knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(mm)</code></pre></div>
 <table class="table">
@@ -297,14 +303,14 @@ get_most_similar_articles &lt;-<span class="st"> </span><span class="cf">functio
   <span class="co"># Compare documents to another fingerprinted document</span>
   comp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/do_compare-methods.html">do_compare</a></span>(mtrain, doc, <span class="dt">method =</span> <span class="st">"cosine"</span>)
   <span class="co"># To data frame</span>
-  comp_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="st">"sim"</span> =<span class="st"> </span>comp[,<span class="dv">1</span>],
-                        <span class="st">"uuid"</span> =<span class="st"> </span><span class="kw">row.names</span>(comp)) <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sim)) <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">slice</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">select</span>(uuid) <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">pull</span>()
+  comp_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">"sim"</span> =<span class="st"> </span>comp[,<span class="dv">1</span>],
+                        <span class="st">"uuid"</span> =<span class="st"> </span><span class="kw">row.names</span>(comp))
+  <span class="co"># Order</span>
+  comp_df &lt;-<span class="st"> </span>comp_df[<span class="kw">order</span>(comp_df<span class="op">$</span>sim, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), ]
+  <span class="co"># Get docs number 2 and 3</span>
+  comp_df &lt;-<span class="st"> </span>comp_df[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, <span class="st">"uuid"</span>]
   <span class="co"># Get text</span>
-  texts &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(fps_train, <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="kw"><a href="../reference/getters.html">uuid</a></span>(x) <span class="op">%in%</span><span class="st"> </span>comp_df) <span class="kw"><a href="../reference/getters.html">text</a></span>(x))
+  texts &lt;-<span class="st"> </span><span class="kw">lapply</span>(fps_train, <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="kw"><a href="../reference/getters.html">uuid</a></span>(x) <span class="op">%in%</span><span class="st"> </span>comp_df) <span class="kw"><a href="../reference/getters.html">text</a></span>(x))
   <span class="co"># Remove null</span>
   texts &lt;-<span class="st"> </span>texts[<span class="kw">sapply</span>(texts, <span class="cf">function</span>(x) <span class="op">!</span><span class="kw">is.null</span>(x))]
   <span class="co"># Cat</span>
