@@ -5,6 +5,11 @@ language: R
 sudo: false
 cache: packages
 
+warnings_are_errors: false
+
+r_build_args: --no-build-vignettes --no-manual --no-resave-data
+r_check_args: --no-build-vignettes --no-manual
+
 before_install:
   - sudo apt-get -y install python3-pip python3
   - pip3 install --user retinasdk numpy
