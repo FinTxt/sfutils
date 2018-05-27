@@ -55,13 +55,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="http://notyetalink.com">FinTxtAPI package</a>
-    </li>
-    <li>
-      <a href="http://notyetalink.com">FinTxtShiny package</a>
-    </li>
-    <li>
-      <a href="https://hub.docker.com/r/jhginn/fintxtdocker/">FinTxtDocker image</a>
+      <a href="https://github.com/cortical-io/retina-sdk.py">Python retinasdk module</a>
     </li>
   </ul>
 </li>
@@ -73,9 +67,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://github.com/cortical-io/retina-sdk.py">Python retinasdk module</a>
-    </li>
-    <li>
       <a href="http://api.cortical.io">Cortical API tool</a>
     </li>
     <li>
@@ -100,12 +91,6 @@
 <li>
   <a href="https://github.com/JasperHG90/sfutils">
     <span class="fa fa-github"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="https://fintxt.slack.com/messages/CAAUEHK6X/details/">
-    <span class="fa fa-slack"></span>
      
   </a>
 </li>
@@ -138,54 +123,49 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))
 <span class="co"># Load data</span>
 <span class="kw">data</span>(<span class="st">"SAP500"</span>)</code></pre></div>
-<p>We will make a subset of this data (65 companies) for the purposes of this document:</p>
+<p>We will make a subset of this data (50 companies) for the purposes of this document:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Choose these companies</span>
-chosen &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">17</span>, 
-            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">32</span>, <span class="dv">33</span>, 
-            <span class="dv">35</span>, <span class="dv">57</span>, <span class="dv">61</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">69</span>, <span class="dv">74</span>, <span class="dv">81</span>, 
-            <span class="dv">90</span>, <span class="dv">93</span>, <span class="dv">119</span>, <span class="dv">126</span>, <span class="dv">135</span>, <span class="dv">141</span>, <span class="dv">149</span>, 
-            <span class="dv">151</span>, <span class="dv">160</span>, <span class="dv">174</span>, <span class="dv">184</span>, <span class="dv">192</span>, <span class="dv">222</span>, <span class="dv">232</span>, 
-            <span class="dv">269</span>, <span class="dv">282</span>, <span class="dv">309</span>, <span class="dv">326</span>, <span class="dv">335</span>, <span class="dv">344</span>, <span class="dv">348</span>, 
-            <span class="dv">349</span>, <span class="dv">359</span>, <span class="dv">365</span>, <span class="dv">384</span>, <span class="dv">391</span>, <span class="dv">400</span>, <span class="dv">401</span>, 
-            <span class="dv">416</span>, <span class="dv">428</span>, <span class="dv">432</span>, <span class="dv">443</span>, <span class="dv">445</span>, <span class="dv">451</span>, <span class="dv">464</span>, 
-            <span class="dv">474</span>, <span class="dv">482</span>, <span class="dv">493</span>, <span class="dv">500</span>, <span class="dv">504</span>)
+chosen &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span><span class="op">:</span><span class="dv">13</span>,
+            <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">28</span><span class="op">:</span><span class="dv">29</span>, 
+            <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">60</span><span class="op">:</span><span class="dv">62</span>, 
+            <span class="dv">69</span>, <span class="dv">80</span>, <span class="dv">119</span>, <span class="dv">121</span>,
+            <span class="dv">149</span>, <span class="dv">160</span>, <span class="dv">168</span>, <span class="dv">174</span>,
+            <span class="dv">183</span>, <span class="dv">186</span>, <span class="dv">193</span>, <span class="dv">205</span>,
+            <span class="dv">219</span>, <span class="dv">229</span>, <span class="dv">235</span>, <span class="dv">262</span>,
+            <span class="dv">266</span>, <span class="dv">278</span>, <span class="dv">279</span>, <span class="dv">338</span>,
+            <span class="dv">339</span>, <span class="dv">342</span>, <span class="dv">343</span>, <span class="dv">353</span>, 
+            <span class="dv">355</span>, <span class="dv">359</span>, <span class="dv">362</span>, <span class="dv">373</span>,
+            <span class="dv">378</span>, <span class="dv">387</span>, <span class="dv">409</span>, <span class="dv">435</span>, 
+            <span class="dv">436</span>, <span class="dv">453</span>, <span class="dv">468</span>, <span class="dv">487</span>) <span class="co"># 366</span>
 <span class="co"># Subset</span>
 subs &lt;-<span class="st"> </span>SAP500[chosen]
 <span class="kw">names</span>(subs)
-<span class="co">#&gt;  [1] "Booking Holdings Inc"            "Amazon.com Inc"                 </span>
-<span class="co">#&gt;  [3] "Alphabet Inc"                    "BlackRock Inc"                  </span>
-<span class="co">#&gt;  [5] "Chipotle Mexican Grill Inc"      "Boeing Co (BA.N)"               </span>
-<span class="co">#&gt;  [7] "Netflix Inc"                     "Lockheed Martin Corp"           </span>
-<span class="co">#&gt;  [9] "SVB Financial Group"             "Regeneron Pharmaceuticals Inc"  </span>
-<span class="co">#&gt; [11] "Humana Inc"                      "Biogen Inc"                     </span>
-<span class="co">#&gt; [13] "FedEx Corp"                      "NVIDIA Corp"                    </span>
-<span class="co">#&gt; [15] "UnitedHealth Group Inc"          "Adobe Systems Inc"              </span>
-<span class="co">#&gt; [17] "Goldman Sachs Group Inc (GS.N)"  "Broadcom Inc"                   </span>
-<span class="co">#&gt; [19] "Berkshire Hathaway Inc (BRKb.N)" "Apple Inc"                      </span>
-<span class="co">#&gt; [21] "Mastercard Inc (MA.N)"           "Facebook Inc (FB.OQ)"           </span>
-<span class="co">#&gt; [23] "Aetna Inc"                       "Moody's Corp"                   </span>
-<span class="co">#&gt; [25] "McDonald's Corp"                 "Caterpillar Inc"                </span>
-<span class="co">#&gt; [27] "Deere &amp; Co (DE.N)"               "Electronic Arts Inc (EA.OQ)"    </span>
-<span class="co">#&gt; [29] "Chevron Corp"                    "Johnson &amp; Johnson"              </span>
-<span class="co">#&gt; [31] "Dr Pepper Snapple Group Inc"     "Universal Health Services Inc"  </span>
-<span class="co">#&gt; [33] "United Parcel Service Inc"       "JPMorgan Chase &amp; Co"            </span>
-<span class="co">#&gt; [35] "HCA Healthcare Inc"              "American Express Co"            </span>
-<span class="co">#&gt; [37] "Microsoft Corp"                  "Western Digital Corp"           </span>
-<span class="co">#&gt; [39] "Walmart Inc"                     "Activision Blizzard Inc"        </span>
-<span class="co">#&gt; [41] "Citigroup Inc (C.N)"             "E*TRADE Financial Corp"         </span>
-<span class="co">#&gt; [43] "WestRock Co"                     "Kraft Heinz Co"                 </span>
-<span class="co">#&gt; [45] "Delta Air Lines Inc"             "Intel Corp"                     </span>
-<span class="co">#&gt; [47] "Wells Fargo &amp; Co"                "Morgan Stanley (MS.N)"          </span>
-<span class="co">#&gt; [49] "Cardinal Health Inc"             "Oracle Corp"                    </span>
-<span class="co">#&gt; [51] "American Airlines Group Inc"     "Coca-Cola Co (KO.N)"            </span>
-<span class="co">#&gt; [53] "Harley-Davidson Inc"             "Twenty-First Century Fox Inc"   </span>
-<span class="co">#&gt; [55] "Pfizer Inc"                      "Quanta Services Inc"            </span>
-<span class="co">#&gt; [57] "AT&amp;T Inc (T.N)"                  "Comcast Corp"                   </span>
-<span class="co">#&gt; [59] "Bank of America Corp"            "Viacom Inc"                     </span>
-<span class="co">#&gt; [61] "HP Inc"                          "Western Union Co (WU.N)"        </span>
-<span class="co">#&gt; [63] "Hewlett Packard Enterprise Co"   "General Electric Co (GE.N)"     </span>
-<span class="co">#&gt; [65] "Ford Motor Co (F.N)"</span></code></pre></div>
-<p>We fingerprint the descriptions. Given the</p>
+<span class="co">#&gt;  [1] "Booking Holdings Inc"          "Amazon.com Inc"               </span>
+<span class="co">#&gt;  [3] "Alphabet Inc"                  "Boeing Co"                    </span>
+<span class="co">#&gt;  [5] "Netflix Inc"                   "Lockheed Martin Corp"         </span>
+<span class="co">#&gt;  [7] "Humana Inc"                    "FedEx Corp"                   </span>
+<span class="co">#&gt;  [9] "NVIDIA Corp"                   "Goldman Sachs Group Inc"      </span>
+<span class="co">#&gt; [11] "Broadcom Inc"                  "Mastercard Inc"               </span>
+<span class="co">#&gt; [13] "Apple Inc"                     "Facebook Inc"                 </span>
+<span class="co">#&gt; [15] "Aetna Inc"                     "Red Hat Inc"                  </span>
+<span class="co">#&gt; [17] "Electronic Arts Inc"           "Visa Inc"                     </span>
+<span class="co">#&gt; [19] "Universal Health Services Inc" "JPMorgan Chase &amp; Co"          </span>
+<span class="co">#&gt; [21] "Citrix Systems Inc"            "HCA Healthcare Inc"           </span>
+<span class="co">#&gt; [23] "American Express Co"           "Raymond James Financial Inc"  </span>
+<span class="co">#&gt; [25] "Microsoft Corp"                "Time Warner Inc"              </span>
+<span class="co">#&gt; [27] "Western Digital Corp"          "Walmart Inc"                  </span>
+<span class="co">#&gt; [29] "PayPal Holdings Inc"           "Nike Inc"                     </span>
+<span class="co">#&gt; [31] "Activision Blizzard Inc"       "Best Buy Co Inc"              </span>
+<span class="co">#&gt; [33] "Citigroup Inc"                 "Delta Air Lines Inc"          </span>
+<span class="co">#&gt; [35] "Foot Locker Inc"               "Intel Corp"                   </span>
+<span class="co">#&gt; [37] "Wells Fargo &amp; Co"              "Morgan Stanley"               </span>
+<span class="co">#&gt; [39] "Southwest Airlines Co"         "Cardinal Health Inc"          </span>
+<span class="co">#&gt; [41] "CBS Corp"                      "Verizon Communications Inc"   </span>
+<span class="co">#&gt; [43] "Oracle Corp"                   "Cisco Systems Inc"            </span>
+<span class="co">#&gt; [45] "Twenty-First Century Fox Inc"  "AT&amp;T Inc"                     </span>
+<span class="co">#&gt; [47] "Comcast Corp"                  "Viacom Inc"                   </span>
+<span class="co">#&gt; [49] "HP Inc"                        "Hewlett Packard Enterprise Co"</span></code></pre></div>
+<p>We fingerprint the descriptions, calculate a distance matrix and cluster the results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retrieve only descriptions</span>
 desc_only &lt;-<span class="st"> </span><span class="kw">lapply</span>(subs, <span class="cf">function</span>(x) x<span class="op">$</span>desc)
 
@@ -202,6 +182,7 @@ fpsdst &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="k
 <span class="co"># Do hierarchical clustering and plot</span>
 clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(fpsdst, <span class="dt">method =</span> <span class="st">"ward.D2"</span>)</code></pre></div>
 <p><img src="dendro1.png" width="80%/"></p>
+<p>We now do the same but using PCA to reduce the number of columns to 30</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reduce dimensions</span>
 <span class="kw">library</span>(FactoMineR)
 red &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/FactoMineR/topics/PCA">PCA</a></span>(<span class="kw">as.matrix</span>(binmat),
@@ -211,7 +192,7 @@ red &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocument
 pred &lt;-<span class="st"> </span><span class="kw">predict</span>(red, binmat)<span class="op">$</span>coord
 
 <span class="co"># Take 64 dims</span>
-pred_filt &lt;-<span class="st"> </span>pred[,<span class="dv">1</span><span class="op">:</span><span class="dv">64</span>]
+pred_filt &lt;-<span class="st"> </span>pred[,<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>]
 
 <span class="co"># As distance</span>
 dd &lt;-<span class="st"> </span><span class="kw">dist</span>(pred_filt)

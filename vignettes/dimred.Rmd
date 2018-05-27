@@ -26,25 +26,28 @@ suppressPackageStartupMessages(library(sfutils))
 data("SAP500")
 ```
 
-We will make a subset of this data (65 companies) for the purposes of this document:
+We will make a subset of this data (50 companies) for the purposes of this document:
 
 ```{r}
 # Choose these companies
-chosen <- c(1, 2, 3, 7, 9, 12, 13, 16, 17, 
-            20, 21, 22, 28, 29, 31, 32, 33, 
-            35, 57, 61, 60, 62, 69, 74, 81, 
-            90, 93, 119, 126, 135, 141, 149, 
-            151, 160, 174, 184, 192, 222, 232, 
-            269, 282, 309, 326, 335, 344, 348, 
-            349, 359, 365, 384, 391, 400, 401, 
-            416, 428, 432, 443, 445, 451, 464, 
-            474, 482, 493, 500, 504)
+chosen <- c(1:3, 12:13,
+            16, 21, 28:29, 
+            33, 35, 60:62, 
+            69, 80, 119, 121,
+            149, 160, 168, 174,
+            183, 186, 193, 205,
+            219, 229, 235, 262,
+            266, 278, 279, 338,
+            339, 342, 343, 353, 
+            355, 359, 362, 373,
+            378, 387, 409, 435, 
+            436, 453, 468, 487) # 366
 # Subset
 subs <- SAP500[chosen]
 names(subs)
 ```
 
-We fingerprint the descriptions. Given the 
+We fingerprint the descriptions, calculate a distance matrix and cluster the results.
 
 ```{r, eval=FALSE}
 # Retrieve only descriptions
@@ -66,6 +69,8 @@ clust <- hclust(fpsdst, method = "ward.D2")
 
 <img src=dendro1.png width=80%/>
 
+We now do the same but using PCA to reduce the number of columns to 30
+
 ```{r, eval = FALSE}
 # Reduce dimensions
 library(FactoMineR)
@@ -76,7 +81,7 @@ red <- PCA(as.matrix(binmat),
 pred <- predict(red, binmat)$coord
 
 # Take 64 dims
-pred_filt <- pred[,1:64]
+pred_filt <- pred[,1:30]
 
 # As distance
 dd <- dist(pred_filt)

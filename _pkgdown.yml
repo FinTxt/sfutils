@@ -15,16 +15,10 @@ navbar:
       href: TODO.html
     - text: "See also"
       menu:
-        - text: "FinTxtAPI package"
-          href: "http://notyetalink.com"
-        - text: "FinTxtShiny package"
-          href: "http://notyetalink.com"
-        - text: "FinTxtDocker image"
-          href: "https://hub.docker.com/r/jhginn/fintxtdocker/"
-    - text: "Useful links"
-      menu:
         - text: "Python retinasdk module"
           href: https://github.com/cortical-io/retina-sdk.py
+    - text: "Useful links"
+      menu:
         - text: "Cortical API tool"
           href: http://api.cortical.io
         - text: "Retina API documentation"
@@ -38,8 +32,6 @@ navbar:
      href: mailto:jasperginn@gmail.com
    - icon: fa-github
      href: https://github.com/JasperHG90/sfutils
-   - icon: fa-slack
-     href: https://fintxt.slack.com/messages/CAAUEHK6X/details/
 
 articles:
   - title: "Core package functionality"
@@ -89,7 +81,6 @@ reference:
       - do_compare
       - get_context
       - get_keywords
-      - plot_context
       - as.collection
       - show,Fingerprint-method
       - plot,Fingerprint-method
