@@ -9,9 +9,6 @@ before_install:
   - sudo apt-get -y install python3-pip python-dev
   - pip install --user retinasdk
 
-python:
-  - "3.6"
-
 r_packages:
   - covr
 
