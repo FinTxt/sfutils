@@ -3,10 +3,11 @@ rm(list=ls())
 # Packages
 library(purrr)
 library(dplyr)
-'
-install.packages("tm")
-install.packages("tm.corpus.Reuters21578", repos = "http://datacube.wu.ac.at")
-'
+
+# If necessary, install:
+#   install.packages("tm")
+#   install.packages("tm.corpus.Reuters21578", repos = "http://datacube.wu.ac.at")
+
 library(tm.corpus.Reuters21578)
 # Load data
 data(Reuters21578)

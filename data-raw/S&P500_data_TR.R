@@ -75,7 +75,7 @@ crawl_page <- function(page, ticker) {
     html_node(css = "#sectionTitle") %>%
     html_node("h1") %>%
     html_text() %>%
-    str_replace_all(., "Profile:\\s|\\s\\([A-Z]{3,5}\\.[A-Z]{1,3}\\)", "")
+    str_replace_all(., "Profile:\\s|\\s\\([A-Z]{1,5}\\.[A-Z]{1,3}\\)", "")
 
   # This is the text of a description
   desc <- aboutPage %>%
@@ -109,7 +109,8 @@ crawl_page <- function(page, ticker) {
 }
 
 # Lapply
-desc <- mapply(crawl_page, page = pg,
+desc <- mapply(crawl_page,
+               page = pg,
                ticker = tickers,
                SIMPLIFY = FALSE)
 
@@ -121,4 +122,4 @@ names(desc) <- nams
 SAP500 <- desc
 
 # Dump
-devtools::use_data(SAP500)
+devtools::use_data(SAP500, overwrite = TRUE)

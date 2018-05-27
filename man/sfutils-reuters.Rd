@@ -4,7 +4,6 @@
 \name{fps_train}
 \alias{fps_train}
 \alias{fps_test}
-\alias{company_descriptions}
 \title{Fingerprints and labels for 690 documents (train set) and 189 documents (test set)}
 \format{A list with three entries:
 \enumerate{
@@ -20,19 +19,13 @@
 }}
 \source{
 \url{https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}
-
-\url{https://www.reuters.com/markets/stocks}
 }
 \usage{
 fps_train
 
 fps_test
-
-company_descriptions
 }
 \description{
 690 Fingerprinted documents (fps_train) and 189 fingerprinted documents (fps_test) belonging to nine categories taken from the 'reuters21578' dataset in the 'tm.corpus.Reuters21578' package. The data has been processed such that a) only articles are considered that belong to only one class, b) only articles belonging to one of the following topics are considered: grain, corn, crude, livestock, wheat, coffee, sugar, gold, copper, cocoa. The labels_binomial variable is created by recoding the topics as 'crude' if the topic belongs to 'crude' and 'other' if the topic belongs to one of the other classes.
-
-Name, ticker, url and business description of 6 companies. Taken from Thompson Reuters.
 }
 \keyword{datasets}
