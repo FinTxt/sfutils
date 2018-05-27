@@ -20,10 +20,10 @@
 #'   \item{type}{type of the document that was fingerprinted}
 #' }
 #' @source \url{https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection}
-#' @rdname sfutils-data
+#' @rdname sfutils-reuters
 "fps_train"
 
-#' @rdname sfutils-data
+#' @rdname sfutils-reuters
 "fps_test"
 
 #' Small sample of business descriptions of six companies
@@ -38,5 +38,20 @@
 #'   \item{url}{url to the company page on Thompson Reuters website}
 #' }
 #' @source \url{https://www.reuters.com/markets/stocks}
-#' @rdname sfutils-data
+#' @rdname sfutils-thompsonreuters1
 "company_descriptions"
+
+#' Business descriptions for S&P500 companies
+#'
+#' Name, ticker, url and business description of 500 companies. Taken from Thompson Reuters. (downloaded on 27/05/2018)
+#'
+#' @format A list, each entry of which is a list (one per company)
+#' \describe{
+#'   \item{company}{name of the company}
+#'   \item{url}{url to the company page on Thompson Reuters website}
+#'   \item{desc}{business description}
+#'   \item{ticker}{ticker of the company}
+#' }
+#' @source \url{https://www.reuters.com/finance/markets/index/.SPX?sortBy=last&sortDir=DESC&pn=}
+#' @rdname sfutils-thompsonreuters2
+"SAP500"
