@@ -41,8 +41,11 @@ setMethod("show",
 #'
 #' @rdname Fingerprint-plot
 #' @docType methods
+#'
 #' @import ggplot2
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom stats na.omit
+#'
 #' @export
 
 setMethod("plot",

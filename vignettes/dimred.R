@@ -11,21 +11,18 @@ data("SAP500")
 
 ## ------------------------------------------------------------------------
 # Choose these companies
-chosen <- c(2, 3, 12, 
-            13, 16, 20, 
-            21, 28, 29, 
-            31, 32, 33, 35, 
-            61, 60, 62, 
-            69, 119, 135, 
-            141, 149, 151, 160, 
-            174, 184, 192, 222, 
-            232, 269, 282, 309, 
-            335, 344, 348, 
-            349, 359, 365, 384, 
-            391, 400, 416, 
-            432, 443, 445, 
-            451, 464, 474, 
-            493, 500)
+chosen <- c(1:3, 12:13,
+            16, 21, 28:29, 
+            33, 35, 60:62, 
+            69, 80, 119, 121,
+            149, 160, 168, 174,
+            183, 186, 193, 205,
+            219, 229, 235, 262,
+            266, 278, 279, 338,
+            339, 342, 343, 353, 
+            355, 359, 362, 373,
+            378, 387, 409, 435, 
+            436, 453, 468, 487) # 366
 # Subset
 subs <- SAP500[chosen]
 names(subs)
@@ -53,17 +50,11 @@ names(subs)
 #  red <- PCA(as.matrix(binmat),
 #             ncp = ncol(binmat), graph = FALSE)
 #  
-#  red <- MCA(as.matrix(bmf),
-#             ncp = ncol(bmf), graph = FALSE,
-#             quanti.sup = 1:16384)
-#  
-#  hccp <- HCPC(red$eig)
-#  
 #  # Predict
 #  pred <- predict(red, binmat)$coord
 #  
 #  # Take 64 dims
-#  pred_filt <- pred[,1:64]
+#  pred_filt <- pred[,1:30]
 #  
 #  # As distance
 #  dd <- dist(pred_filt)

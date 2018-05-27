@@ -132,7 +132,7 @@ txt &lt;-<span class="st"> "JAKARTA (Reuters) - Indonesia’s central bank will 
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  aba24af5-946e-4df0-bf35-f61ec0d86154</span>
+<span class="co">#&gt;  unique id:  a8ec9dde-7036-4a25-9f65-49a57f751389</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>However, this is not the recommended procedure. It’s more convenient to call <code><a href="../reference/do_fingerprint_document.html">do_fingerprint_document()</a></code> because it’s likely you want to fingerprint more than one text. This function will detect that and call the “bulk” endpoint, which is more efficient in fingerprinting multiple texts.</p>
@@ -140,7 +140,7 @@ doc
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  bede7b17-ce4b-43ba-9387-254197864ec6</span>
+<span class="co">#&gt;  unique id:  ce9289c5-c509-4745-ac83-fd58723fcd5b</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>Additionally, this function will return a Collection object if you pass more than one text.</p>
@@ -153,7 +153,7 @@ doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Documen
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  bede7b17-ce4b-43ba-9387-254197864ec6</span>
+<span class="co">#&gt;  unique id:  ce9289c5-c509-4745-ac83-fd58723fcd5b</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>In this case, the API is not called.</p>
@@ -449,7 +449,7 @@ col_sbm[<span class="dv">1</span><span class="op">:</span><span class="dv">5</sp
 <p>This returns an object of class <a href="https://stat.ethz.ch/R-manual/R-devel/library/Matrix/html/dgCMatrix-class.html">dgCMatrix</a> from the <a href="https://cran.r-project.org/package=Matrix">Matrix</a> library. This matrix can be used to compare the documents to some reference fingerprint</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ref &lt;-<span class="st"> </span><span class="kw"><a href="../reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"petroleum"</span>)
 <span class="kw"><a href="../reference/do_compare-methods.html">do_compare</a></span>(col_sbm, ref)
-<span class="co">#&gt;                                      15bffd5b-3e04-402d-be4e-498b7892fdb1</span>
+<span class="co">#&gt;                                      0eebf8b5-7ecc-411f-bce5-937588670f44</span>
 <span class="co">#&gt; 125fb979-9f92-47ae-bf96-06b408169edf                            0.3643643</span>
 <span class="co">#&gt; 9abd155e-1d30-4315-a872-200d1a95cb11                            0.2393891</span>
 <span class="co">#&gt; 6e2fbf10-57af-4a28-8dc8-aa3d49c21291                            0.3080375</span>

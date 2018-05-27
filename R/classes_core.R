@@ -24,6 +24,10 @@
 #'
 #' @seealso See the \href{http://documentation.cortical.io/intro.html}{Cortical documentation} for more information about semantic fingerprinting
 #'
+#' @importFrom methods is
+#' @importFrom methods new
+#' @importFrom methods slot
+#'
 #' @name Fingerprint-class
 
 .Fingerprint <- setClass(

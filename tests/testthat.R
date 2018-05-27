@@ -1,4 +1,4 @@
 library(testthat)
-library(FinTxtUtils)
+library(sfutils)
 
-test_check("FinTxtUtils")
+test_check("sfutils")

@@ -167,7 +167,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  f0a36459-7417-4ea8-bf0f-55c8c82f3ad6
+##  unique id:  545e5261-c0f3-4d06-b015-afc01f611ca5
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -182,11 +182,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## f0a36459-7417-4ea8-bf0f-55c8c82f3ad6  .  .  .  .  .
-## dc24114b-d1d8-4762-8747-cbbdb8ae3545  .  .  .  .  .
-## f8f7afc6-cac6-4267-a79f-f138447f96f2  .  .  .  .  .
-## 401b356d-2112-4feb-9c9f-af9915c1f0ee  .  .  .  1  .
-## 3500e301-8662-463f-9789-b9bbe4201758  1  1  1  1  .</code></pre>
+## 545e5261-c0f3-4d06-b015-afc01f611ca5  .  .  .  .  .
+## 9c5f1acb-f39a-45ae-b4f8-415028c0dc98  .  .  .  .  .
+## 8a0bb764-aa5c-4bbe-bda5-d122331903db  .  .  .  .  .
+## 68c6ca0c-0514-4d4f-bee2-093f06c5257e  .  .  .  1  .
+## 58db813d-6efe-4def-9c91-7d03b8d4e482  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -325,8 +325,9 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li>
+<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> | file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
 <div class="developers">
@@ -343,6 +344,8 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 <li><a href="https://travis-ci.org/JasperHG90/sfutils"><img src="https://api.travis-ci.com/JasperHG90/sfutils.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/gh/JasperHG90/sfutils"><img src="https://codecov.io/gh/JasperHG90/sfutils/branch/master/graphs/badge.svg" alt="CODECOV"></a></li>
+<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.1.0-6666ff.svg" alt="minimal R version"></a></li>
+<li><a href="https://cran.r-project.org/package=sfutils"><img src="http://www.r-pkg.org/badges/version/sfutils" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
 </div>
