@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 
 ```{r, eval=TRUE, echo=FALSE}
 suppressPackageStartupMessages(library(sfutils))
-suppressPackageStartupMessages(library(dplyr))
 ```
 
 ```{r, message=FALSE, eval=TRUE}
@@ -76,16 +75,23 @@ methods <- c("cosine", "jaccard", "dice", "gilbertwells",
   "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming")
 type <- c(rep("similarity", 6), rep("distance", 3))
 # Compute for all methods
-mm <- purrr::map2_df(methods, type, function(x, y) {
-  data_frame(
+mm <- mapply(function(x, y) {
+    data.frame(
     "metric" = x,
     "type" = y,
     "value" = round(do_compare(fps_train[[1]], 
                                fps_train[[2]], 
                                method = x)[1,1],
                     digits = 3)
-  )
-})
+      )
+    },
+    methods,
+    type,
+    SIMPLIFY = FALSE)
+
+# To data frame
+mm <- do.call(rbind.data.frame, mm)
+row.names(mm) <- 1:9
 
 knitr::kable(mm)
 ```
@@ -115,14 +121,14 @@ get_most_similar_articles <- function(doc) {
   # Compare documents to another fingerprinted document
   comp <- do_compare(mtrain, doc, method = "cosine")
   # To data frame
-  comp_df <- data_frame("sim" = comp[,1],
-                        "uuid" = row.names(comp)) %>%
-                arrange(desc(sim)) %>%
-                slice(2:3) %>%
-                select(uuid) %>%
-                pull()
+  comp_df <- data.frame("sim" = comp[,1],
+                        "uuid" = row.names(comp))
+  # Order
+  comp_df <- comp_df[order(comp_df$sim, decreasing = TRUE), ]
+  # Get docs number 2 and 3
+  comp_df <- comp_df[2:3, "uuid"]
   # Get text
-  texts <- purrr::map(fps_train, function(x) if(uuid(x) %in% comp_df) text(x))
+  texts <- lapply(fps_train, function(x) if(uuid(x) %in% comp_df) text(x))
   # Remove null
   texts <- texts[sapply(texts, function(x) !is.null(x))]
   # Cat
