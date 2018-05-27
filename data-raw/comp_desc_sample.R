@@ -24,32 +24,7 @@ The Retail Netherlands segment recognizes income from retail and private banking
     "url" = "https://www.reuters.com/finance/stocks/overview/ING"
   ),
   "Alphabet" = list(
-    "desc" = "GOOGL.OQ on NASDAQ Stock Exchange Global Select Market
-
-    1,088.95USD
-    9 May 2018
-    Change	(% chg)
-
-    $30.36	(+2.87%)
-    Prev Close
-    $1,058.59
-    Open
-    $1,064.10
-    Day's High
-    $1,094.00
-    Day's Low
-    $1,062.11
-    Volume
-    857,268
-    Avg. Vol
-    790,674
-    52-wk High
-    $1,197.99
-    52-wk Low
-    $915.52
-
-    FULL DESCRIPTION
-    Alphabet Inc., incorporated on July 23, 2015, is a holding company. The Company's businesses include Google Inc. (Google) and its Internet products, such as Access, Calico, CapitalG, GV, Nest, Verily, Waymo and X. The Company's segments include Google and Other Bets. The Google segment includes its Internet products, such as Search, Ads, Commerce, Maps, YouTube, Google Cloud, Android, Chrome and Google Play, as well as its hardware initiatives. The Google segment is engaged in advertising, sales of digital content, applications and cloud offerings, and sales of hardware products. The Other Bets segment is engaged in the sales of Internet and television services through Google Fiber, sales of Nest products and services, and licensing and research and development (R&D) services through Verily.
+    "desc" = "Alphabet Inc., incorporated on July 23, 2015, is a holding company. The Company's businesses include Google Inc. (Google) and its Internet products, such as Access, Calico, CapitalG, GV, Nest, Verily, Waymo and X. The Company's segments include Google and Other Bets. The Google segment includes its Internet products, such as Search, Ads, Commerce, Maps, YouTube, Google Cloud, Android, Chrome and Google Play, as well as its hardware initiatives. The Google segment is engaged in advertising, sales of digital content, applications and cloud offerings, and sales of hardware products. The Other Bets segment is engaged in the sales of Internet and television services through Google Fiber, sales of Nest products and services, and licensing and research and development (R&D) services through Verily.
     Google is engaged in investing in infrastructure, data management, analytics and artificial intelligence (AI). The Company offers Google Assistant, which allows users to type or talk with Google in a natural conversational way to help them get things done; Google Maps, which helps users navigate to a store while showing them current traffic conditions, and Google Photos, which helps users store and organize all of their photos. The Company invests in platforms, such as Chrome browser, Android mobile operating system, Chrome operating system and Daydream virtual reality platform, as well as its hardware devices, such as the Pixel phone and Google Home.
     The Company provides advertisers with tools that help them attribute and measure their advertising campaigns across screens. Its advertising solutions help a range of companies grow their businesses, and it offers a range of products across screens and devices. For performance advertisers, AdWords, its primary auction-based advertising program, helps create text-based advertisements that appear on Google properties and the properties of Google Network Members. In addition, Google Network Members use its AdSense program to display relevant advertisements on their properties, generating revenues when site visitors view or click on the advertisements. The Company also offers advertisement technology platform for brand advertisers, agencies, and publishers to help their digital marketing businesses.
     The Company competes with Microsoft, Yahoo, Yandex, Baidu, Naver, Seznam, Amazon, eBay, Kayak, LinkedIn, WebMD, Facebook, Twitter, Criteo, AppNexus, Netflix, Hulu and Apple.",
