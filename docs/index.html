@@ -166,7 +166,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  7c392206-cd14-4db8-8fc5-1bf838da6a03
+##  unique id:  ced6e952-81d5-494c-9ec8-9bc66878cc62
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -181,11 +181,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## 7c392206-cd14-4db8-8fc5-1bf838da6a03  .  .  .  .  .
-## a4cabe2c-49af-488f-a8a3-0bef1c245807  .  .  .  .  .
-## 915b5c96-a1d9-4ef3-a77b-7bbd182d0f62  .  .  .  .  .
-## 9867b856-b2dc-48f8-bf9b-f2b6d1c3b21f  .  .  .  1  .
-## 952dc6ef-bfed-475b-93c7-cbf78703e325  1  1  1  1  .</code></pre>
+## ced6e952-81d5-494c-9ec8-9bc66878cc62  .  .  .  .  .
+## 0a09a28f-fc26-4bd2-968e-ac06648ec814  .  .  .  .  .
+## c2131518-fe3f-46dd-939f-3d824e06cba8  .  .  .  .  .
+## aeb6e3ce-c9e5-4e74-9211-a7ee187714fb  .  .  .  1  .
+## 07d859fe-6e33-40ad-99ad-3c80f75907e4  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -344,6 +344,7 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <li><a href="https://travis-ci.com/JasperHG90/sfutils"><img src="https://travis-ci.com/JasperHG90/sfutils.svg?token=pcr5vqKcs9MFoH1thkwe&amp;branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/gh/JasperHG90/sfutils"><img src="https://codecov.io/gh/JasperHG90/sfutils/branch/master/graph/badge.svg?token=jsmRpS2I9Q" alt="codecov"></a></li>
 <li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.1.0-6666ff.svg" alt="minimal R version"></a></li>
+<li><a href="https://www.python.org"><img src="https://img.shields.io/pypi/pyversions/Django.svg" alt="python version"></a></li>
 <li><a href="https://cran.r-project.org/package=sfutils"><img src="http://www.r-pkg.org/badges/version/sfutils" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
