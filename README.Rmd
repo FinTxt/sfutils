@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.height=5, fig.width=5)
 ```
 
 [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive) [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)  
+[![Build Status](https://api.travis-ci.org/JasperHG90/sfutils.svg?branch=master)](https://travis-ci.org/JasperHG90/sfutils)
 
 ### What is it?
 
