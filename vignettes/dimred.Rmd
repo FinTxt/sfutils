@@ -46,7 +46,7 @@ names(subs)
 
 We fingerprint the descriptions. Given the 
 
-```{r}
+```{r, eval=FALSE}
 # Retrieve only descriptions
 desc_only <- lapply(subs, function(x) x$desc)
 
@@ -66,7 +66,7 @@ clust <- hclust(fpsdst, method = "ward.D2")
 
 <img src=dendro1.png width=80%/>
 
-```{r}
+```{r, eval = FALSE}
 # Reduce dimensions
 library(FactoMineR)
 red <- PCA(as.matrix(binmat),
@@ -75,8 +75,8 @@ red <- PCA(as.matrix(binmat),
 # Predict
 pred <- predict(red, binmat)$coord
 
-# Take 20 dims
-pred_filt <- pred[,1:50]
+# Take 64 dims
+pred_filt <- pred[,1:64]
 
 # As distance
 dd <- dist(pred_filt)

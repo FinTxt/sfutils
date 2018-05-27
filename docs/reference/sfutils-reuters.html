@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • sfutils</title>
+<title>Fingerprints and labels for 690 documents (train set) and 189 documents (test set) — fps_train • sfutils</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,7 +28,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Fingerprints and labels for 690 documents (train set) and 189 documents (test set) — fps_train" />
+
+<meta property="og:description" content="690 Fingerprinted documents (fps_train) and 189 fingerprinted documents (fps_test) belonging to nine categories taken from the 'reuters21578' dataset in the 'tm.corpus.Reuters21578' package. The data has been processed such that a) only articles are considered that belong to only one class, b) only articles belonging to one of the following topics are considered: grain, corn, crude, livestock, wheat, coffee, sugar, gold, copper, cocoa. The labels_binomial variable is created by recoding the topics as 'crude' if the topic belongs to 'crude' and 'other' if the topic belongs to one of the other classes." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -43,7 +46,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -148,28 +151,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Fingerprints and labels for 690 documents (train set) and 189 documents (test set)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/JasperHG90/sfutils.git/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>sfutils-reuters.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>Core package functionality</h3>
-      <p class="section-desc"><p>How to use the package and its core functions.</p></p>
-
-      <ul>
-        <li><a href="basics.html">Extended introduction to sfutils</a></li>
-        <li><a href="plotting.html">Plotting fingerprints</a></li>
-        <li><a href="construct_expressions.html">Create semantic expressions</a></li>
-        <li><a href="compare_fingerprints.html">Use a variety of methods to compare fingerprints</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>690 Fingerprinted documents (fps_train) and 189 fingerprinted documents (fps_test) belonging to nine categories taken from the 'reuters21578' dataset in the 'tm.corpus.Reuters21578' package. The data has been processed such that a) only articles are considered that belong to only one class, b) only articles belonging to one of the following topics are considered: grain, corn, crude, livestock, wheat, coffee, sugar, gold, copper, cocoa. The labels_binomial variable is created by recoding the topics as 'crude' if the topic belongs to 'crude' and 'other' if the topic belongs to one of the other classes.</p>
+    
     </div>
-    <div class="section ">
-      <h3>Applications</h3>
-      <p class="section-desc"><p>Applications of semantic fingerprints</p></p>
 
-      <ul>
-        <li><a href="dimred.html">Use FactoMineR for dimension reduction</a></li>
-      </ul>
-    </div>
+    <pre class="usage"><span class='no'>fps_train</span>
+
+<span class='no'>fps_test</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A list with three entries:</p><ol>
+<li><p>A vector called 'label_binomial' with two class labels: 'crude' and 'other'</p></li>
+<li><p>A vector called 'label_multinomial' with nine, original class labels</p></li>
+<li><p>A list of 690 (train) or 189 (test) fingerprinted documents of S4 class 'Document'</p><dl class='dl-horizontal'>
+<dt>text</dt><dd><p>original document</p></dd>
+<dt>fingerprint</dt><dd><p>fingerprint of document</p></dd>
+<dt>uuid</dt><dd><p>unique id</p></dd>
+<dt>type</dt><dd><p>type of the document that was fingerprinted</p></dd>
+</dl></li>
+</ol>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection'>https://archive.ics.uci.edu/ml/datasets/Reuters-21578+Text+Categorization+Collection</a></p>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+          </ul>
+
   </div>
 </div>
 

@@ -50,6 +50,11 @@ articles:
       - plotting
       - construct_expressions
       - compare_fingerprints
+  - title: "Applications"
+    desc: >
+      Applications of semantic fingerprints
+    contents:
+      - dimred
 
 reference:
   - title: "Core classes"
