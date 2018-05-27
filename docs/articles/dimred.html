@@ -121,6 +121,7 @@
 <p>Because the retina returns binary values in a finite space (16384 positions), doing computations is more efficient than many other methods. However, the more documents you have, the more expensive computation becomes, especially if you want to compare documents to one another.</p>
 <p>Fortunately, we can reduce the number of dimensions of the retina dramatically while retaining sensible results. This vignette shows how this can be done.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))
+<span class="co">#&gt; No cortical key registered. Execute 'Sys.setenv('CORTICAL_API_KEY' = '&lt;your-key&gt;')' to set your credentials.</span>
 <span class="co"># Load data</span>
 <span class="kw">data</span>(<span class="st">"SAP500"</span>)</code></pre></div>
 <p>We will make a subset of this data (50 companies) for the purposes of this document:</p>

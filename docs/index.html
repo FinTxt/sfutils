@@ -112,9 +112,6 @@
     
     
 
-<div id="what-is-it" class="section level3">
-<h3 class="hasAnchor">
-<a href="#what-is-it" class="anchor"></a>What is it?</h3>
 <p>The goal of <code>sfutils</code> is to provide code and documentation on working with <a href="http://www.cortical.io/technology_semantic.html">semantic fingerprints</a> in R.</p>
 <p>It does this by:</p>
 <ul>
@@ -122,7 +119,6 @@
 <li>implementing an object-oriented approach to working with semantic fingerprints in R.</li>
 <li>providing methods and functions that make it easy to compare fingerprints, convert fingerprints to sparse binary matrices, plot fingerprints etc.</li>
 </ul>
-</div>
 <div id="awesome-what-do-i-need-to-do-to-install-this-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#awesome-what-do-i-need-to-do-to-install-this-package" class="anchor"></a>Awesome! What do I need to do to install this package?</h3>
@@ -139,6 +135,7 @@
 <a href="#im-all-set-how-do-i-get-started" class="anchor"></a>I’m all set! How do I get started?</h3>
 <p>Go ahead and load the package</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))</code></pre></div>
+<pre><code>## No cortical key registered. Execute 'Sys.setenv('CORTICAL_API_KEY' = '&lt;your-key&gt;')' to set your credentials.</code></pre>
 <p>The first thing to do is to set your API key, the server url and retina name as environment variables. If you’re using the free API, you can just set your key and forget about the other two options.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set credentials</span>
 <span class="kw">Sys.setenv</span>(<span class="st">"CORTICAL_SERVER"</span> =<span class="st"> "http://api.cortical.io/rest"</span>) <span class="co"># Optional</span>
@@ -167,7 +164,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  2e5b1a98-9e8f-46c6-aa82-0f37ccc65a0b
+##  unique id:  e51d4b7f-1ef9-4795-9cff-d54e33c57291
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -182,11 +179,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## 2e5b1a98-9e8f-46c6-aa82-0f37ccc65a0b  .  .  .  .  .
-## 574f5227-b848-4f66-8835-bb70bfba8065  .  .  .  .  .
-## 86226258-cfec-44fa-a6dc-377532e1458f  .  .  .  .  .
-## 0a49383f-c6fd-47d0-923a-2b9861ffe7b7  .  .  .  1  .
-## 73eb909b-d1ff-429b-9585-807b4f8740fc  1  1  1  1  .</code></pre>
+## e51d4b7f-1ef9-4795-9cff-d54e33c57291  .  .  .  .  .
+## 35dde7f7-9858-4c50-b9c8-9e431148aa99  .  .  .  .  .
+## a9c79e99-a839-4f15-b397-e08f84f8bfdf  .  .  .  .  .
+## b0852d4c-b632-44c9-ae08-9799ecf752b4  .  .  .  1  .
+## e46db0fa-91d1-4cab-b892-4624b2453b10  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -339,7 +336,9 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.repostatus.org/#inactive"><img src="http://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows."></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="lifecycle"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://travis-ci.org/JasperHG90/sfutils"><img src="https://api.travis-ci.org/JasperHG90/sfutils.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://codecov.io/gh/JasperHG90/sfutils"><img src="https://codecov.io/gh/JasperHG90/sfutils/branch/master/graphs/badge.svg" alt="CODECOV"></a></li>
 </ul>
 </div>
 </div>

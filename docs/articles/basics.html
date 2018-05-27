@@ -124,6 +124,7 @@
 <a href="#documents" class="anchor"></a>Documents</h2>
 <p>“Documents” are long texts (at least 50 characters). There are several ways to fingerprint a document.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(sfutils))
+<span class="co">#&gt; No cortical key registered. Execute 'Sys.setenv('CORTICAL_API_KEY' = '&lt;your-key&gt;')' to set your credentials.</span>
 <span class="co"># Text from: https://www.reuters.com/article/us-indonesia-economy-cenbank/indonesia-central-bank-schedules-extra-board-meeting-for-wednesday-idUSKCN1IQ1R6?il=0</span>
 txt &lt;-<span class="st"> "JAKARTA (Reuters) - Indonesia’s central bank will hold an additional meeting of its board of governors on Wednesday to discuss economic and monetary conditions, Bank Indonesia said in a statement on Friday. “The additional meeting will discuss recent economic and monetary conditions as well as future prospects,” the statement said. It did not elaborate. It said the meeting would not replace the regular monthly monetary policy meeting. The central bank on May 17 raised its benchmark interest rate for the first time since November 2014 in a bid to bolster the fragile rupiah and stem an outflow of capital. The currency has, however, remained weak and was trading near its lowest since October, 2015, this week."</span></code></pre></div>
 <p>For example, you can use the class constructor for the Document class:</p>
@@ -131,7 +132,7 @@ txt &lt;-<span class="st"> "JAKARTA (Reuters) - Indonesia’s central bank will 
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  6ad59363-31ba-4956-87f9-24a61020795b</span>
+<span class="co">#&gt;  unique id:  6f810fdc-e0d9-4724-b80e-77538335a4c5</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>However, this is not the recommended procedure. It’s more convenient to call <code><a href="../reference/do_fingerprint_document.html">do_fingerprint_document()</a></code> because it’s likely you want to fingerprint more than one text. This function will detect that and call the “bulk” endpoint, which is more efficient in fingerprinting multiple texts.</p>
@@ -139,7 +140,7 @@ doc
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  b8d8231f-fb46-4ba6-ac55-ad3cebba3b8c</span>
+<span class="co">#&gt;  unique id:  40f21cc3-9ee3-4431-9bac-312d32f3d859</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>Additionally, this function will return a Collection object if you pass more than one text.</p>
@@ -152,7 +153,7 @@ doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Documen
 doc
 <span class="co">#&gt; Document object.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  unique id:  b8d8231f-fb46-4ba6-ac55-ad3cebba3b8c</span>
+<span class="co">#&gt;  unique id:  40f21cc3-9ee3-4431-9bac-312d32f3d859</span>
 <span class="co">#&gt;  type:       document</span>
 <span class="co">#&gt;  fingerprint:    984 positions</span></code></pre></div>
 <p>In this case, the API is not called.</p>
@@ -448,7 +449,7 @@ col_sbm[<span class="dv">1</span><span class="op">:</span><span class="dv">5</sp
 <p>This returns an object of class <a href="https://stat.ethz.ch/R-manual/R-devel/library/Matrix/html/dgCMatrix-class.html">dgCMatrix</a> from the <a href="https://cran.r-project.org/package=Matrix">Matrix</a> library. This matrix can be used to compare the documents to some reference fingerprint</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ref &lt;-<span class="st"> </span><span class="kw"><a href="../reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"petroleum"</span>)
 <span class="kw"><a href="../reference/do_compare-methods.html">do_compare</a></span>(col_sbm, ref)
-<span class="co">#&gt;                                      113cceae-3fb2-47e8-a135-e9cb565c85b3</span>
+<span class="co">#&gt;                                      05de689c-c402-4061-b37f-93e453a7bc34</span>
 <span class="co">#&gt; 125fb979-9f92-47ae-bf96-06b408169edf                            0.3643643</span>
 <span class="co">#&gt; 9abd155e-1d30-4315-a872-200d1a95cb11                            0.2393891</span>
 <span class="co">#&gt; 6e2fbf10-57af-4a28-8dc8-aa3d49c21291                            0.3080375</span>
