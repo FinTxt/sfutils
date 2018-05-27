@@ -1,0 +1,64 @@
+---
+title: "Use FactoMineR for dimension reduction"
+author: "Jasper Ginn"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Because the retina returns binary values in a finite space (16384 positions), doing computations is more efficient than many other methods. However, the more documents you have, the more expensive computation becomes, especially if you want to compare documents to one another.
+
+Fortunately, we can reduce the number of dimensions of the retina dramatically while retaining sensible results. This vignette shows how this can be done. 
+
+```{r}
+# Retrieve only descriptions
+desc_only <- lapply(desc, function(x) x$desc)
+
+library(sfutils)
+# Fingerprint
+fps <- do_fingerprint_document(desc_only)
+
+# To binary matrix
+binmat <- as.matrix(fps)
+rownames(binmat) <- names(desc_only)
+
+# Reduce dimensions
+library(FactoMineR)
+red <- PCA(as.matrix(binmat),
+           ncp = ncol(binmat), graph = FALSE)
+
+# Predict
+pred <- predict(red, binmat)$coord
+
+# Take 10 dims
+pred_filt <- pred[,1:99]
+
+# Calculate distance
+dd <- dist(pred_filt)
+
+library(graphics)
+cl <- hclust(dd, method="ward.D2")
+par(cex=0.5, mar=c(3,1,1,5))
+plot(cl)
+
+pred_resh <- as_data_frame(pred) %>%
+  mutate(company = names(desc_only)) %>%
+  select(company, Dim.1, Dim.2) %>%
+  sample_n(10)
+
+# Plot
+library(ggplot2)
+ggplot(pred_resh, aes(x=Dim.1, y=Dim.2, color = company)) +
+  geom_point(size = 2) +
+  theme_bw()
+```
