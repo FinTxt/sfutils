@@ -10,28 +10,25 @@ test_that("Datasets have the correct dimensions, lengths and are of the right ty
   data("company_descriptions")
 
   # Length
-  assertthat::assert_that(
-    length(company_descriptions) == 6,
-    msg = "'company_descriptions' data should have 6 entries"
-  )
+  testthat::expect_length(company_descriptions, 6)
 
   # Entries of each element
+
   r <- lapply(company_descriptions, function(x) {
-    assertthat::are_equal(names(x),
+    testthat::expect_equal(names(x),
                           c("desc", "name", "ticker", "url"))
   })
 
   # All entries should have text that is longer than 50 characters
   r <- lapply(company_descriptions, function(x) {
-    assertthat::assert_that(nchar(x$desc) >= 50,
-                            msg = "Not all entries have a description of at least 50 characters")
+    testthat::expect_gte(nchar(x$desc), 50)
   })
 
   ### FPS train data
   data("fps_train")
 
   # Names
-  assertthat::are_equal(
+  testthat::expect_equal(
     names(fps_train),
     c("fingerprints",
       "label_binomial",
@@ -44,15 +41,15 @@ test_that("Datasets have the correct dimensions, lengths and are of the right ty
   mult_length <- length(fps_train$label_multinomial)
 
   # Test
-  assertthat::are_equal(fp_length,
+  testthat::expect_equal(fp_length,
                         bin_length)
-  assertthat::are_equal(fp_length,
+  testthat::expect_equal(fp_length,
                         mult_length)
-  assertthat::are_equal(bin_length,
+  testthat::expect_equal(bin_length,
                         bin_length)
 
   # Fingerprints are all documents
   type <- unlist(lapply(fps_train$fingerprints, function(x) type(x)))
-  assertthat::are_equal(all(type == "document"), TRUE)
+  testthat::expect_equal(all(type == "document"), TRUE)
 
 })
