@@ -151,6 +151,9 @@ create_categoryfilter <- function(name, positive, ...) {
 #' Get fingerprint for a term
 #'
 #' @param term specific term you want to fingerprint
+#' @param start_index The start-index for pagination (optional)
+#' @param max_results Max results per page (optional)
+#' @param get_fingerprint Configure if the fingerprint should be returned as part of the results
 #'
 #' @return fingerprint, pos_type, score and df
 #'
@@ -158,7 +161,10 @@ create_categoryfilter <- function(name, positive, ...) {
 #'
 #' @noRd
 
-fingerprint_term <- function(term) {
+fingerprint_term <- function(term,
+                             start_index = 0L,
+                             max_results = 10L,
+                             get_fingerprint = TRUE) {
 
   # Get key
   key <- Sys.getenv("CORTICAL_API_KEY")
@@ -174,7 +180,10 @@ fingerprint_term <- function(term) {
   conn <- retinasdk$FullClient(key)
 
   # Get fingerprint
-  res <- conn$getTerms(term, getFingerprint = TRUE)
+  res <- conn$getTerms(term,
+                       start_index = start_index,
+                       max_results = max_results,
+                       getFingerprint = get_fingerprint)
 
   # Get metrics & fingerprint
   list(
