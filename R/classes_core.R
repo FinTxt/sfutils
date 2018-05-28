@@ -314,9 +314,6 @@ Filter <- function(name, positive, ...) {
 #' (From \href{Cortical documentation}{http://documentation.cortical.io/working_with_terms.html}) The basic building blocks for performing semantic computations are the representations for single terms. Each Retina contains semantic representations (fingerprints) for a large number of terms, and this page describes how to retrieve these from the API. Furthermore we describe how to query the Retina for semantically similar terms, and retrieve a list of contexts in which a given term can occur.
 #'
 #' @param term term to be fingerprinted
-#' @param start_index The start-index for pagination (optional)
-#' @param max_results Max results per page (optional)
-#' @param get_fingerprint Configure if the fingerprint should be returned as part of the results
 #' @param ... other options to be passed (uuid)
 #'
 #' @importFrom uuid UUIDgenerate
@@ -330,9 +327,6 @@ Filter <- function(name, positive, ...) {
 #' }
 
 Term <- function(term,
-                 start_index = 0,
-                 max_results = 10,
-                 get_fingerprint = TRUE,
                  ...) {
 
   # If (...)
@@ -344,10 +338,7 @@ Term <- function(term,
                      uuid = uuid)
 
   # Fingerprint article
-  term_resp <- fingerprint_term(term,
-                                length(rep(0, start_index)), # This is a bit silly, but I need to do this to get '0L', which is the required
-                                length(rep(0, start_index)), # type for reticulate to pass to python.
-                                get_fingerprint)
+  term_resp <- fingerprint_term(term)
 
   # Create class and return
   .Term(

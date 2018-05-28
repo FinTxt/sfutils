@@ -56,9 +56,6 @@ do_fingerprint_document <- function(x) {
 #' This function is a wrapper. This should be the only function used by the end user to fingerprint terms
 #'
 #' @param x a term to fingerprint
-#' @param start_index The start-index for pagination (optional)
-#' @param max_results Max results per page (optional)
-#' @param get_fingerprint Configure if the fingerprint should be returned as part of the results
 #'
 #' @return an object of class Term
 #'
@@ -66,20 +63,14 @@ do_fingerprint_document <- function(x) {
 #'
 #' @export
 
-do_fingerprint_term <- function(x,
-                                start_index = 0,
-                                max_results = 10,
-                                get_fingerprint = TRUE) {
+do_fingerprint_term <- function(x) {
 
   # Make sure length of x is one
   assertthat::assert_that(length(x) == 1,
                           msg = "Cannot provide multiple terms")
 
   # Call API
-  trm <- Term(x,
-              start_index,
-              max_results,
-              get_fingerprint)
+  trm <- Term(x)
 
   # Return
   return(trm)
