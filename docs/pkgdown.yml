@@ -7,4 +7,7 @@ articles:
   construct_expressions: construct_expressions.html
   dimred: dimred.html
   plotting: plotting.html
+urls:
+  reference: https://jasperhg90.github.io/sfutils/reference
+  article: https://jasperhg90.github.io/sfutils/articles
 

@@ -2,21 +2,21 @@
   "index_name": "sfutils",
   "start_urls": [
     {
-      "url": "/index.html",
+      "url": "https://jasperhg90.github.io/sfutils/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "/reference",
+      "url": "https://jasperhg90.github.io/sfutils/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "/articles",
+      "url": "https://jasperhg90.github.io/sfutils/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "/sitemap.xml"
+    "https://jasperhg90.github.io/sfutils/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

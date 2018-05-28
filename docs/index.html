@@ -174,7 +174,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  a1ca1153-2415-4ae6-a620-dd1490d9da7e
+##  unique id:  60c8ae9d-a8ce-4633-a53a-f9981c5e6a15
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -189,11 +189,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## a1ca1153-2415-4ae6-a620-dd1490d9da7e  .  .  .  .  .
-## 506a77ee-f45f-415d-9bcf-7d41ffbdad03  .  .  .  .  .
-## 2aea47d8-f382-49b7-be82-ce1e6240c626  .  .  .  .  .
-## 3118b771-8337-44db-bc5b-5496ba4bf783  .  .  .  1  .
-## 2d7b4f84-0923-4e51-8e5a-dca2f3e030f6  1  1  1  1  .</code></pre>
+## 60c8ae9d-a8ce-4633-a53a-f9981c5e6a15  .  .  .  .  .
+## c7e70545-246e-45ee-ad0a-b78dd8cebeef  .  .  .  .  .
+## 4e709068-a55d-40cd-85af-a6ef0b1ce213  .  .  .  .  .
+## 2dab1bdb-ebd1-4573-a7da-d95f4a819d3e  .  .  .  1  .
+## f801ee7d-b357-4c20-9f49-3600ee88ad65  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -340,7 +340,8 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Jasper Ginn <br><small class="roles"> Author, maintainer </small>  </li>
+<li>
+<a href="http://linkedin.com/in/jasperginn/">Jasper Ginn</a> <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
@@ -362,7 +363,7 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 
 
       <footer><div class="copyright">
-  <p>Developed by Jasper Ginn.</p>
+  <p>Developed by <a href="http://linkedin.com/in/jasperginn/">Jasper Ginn</a>.</p>
 </div>
 
 <div class="pkgdown">
