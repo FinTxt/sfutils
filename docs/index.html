@@ -9,7 +9,9 @@
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Semantic Fingerprinting in R">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+<link href="docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Semantic Fingerprinting in R">
 <meta property="og:description" content="
     This package enables the user to create, manipulate, plot and compute with 'semantic fingerprints',
     developed by www.cortical.io in R. It does so by porting the python module 'retinasdk' to R. ">
@@ -97,7 +99,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -166,7 +174,7 @@ fps &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fps[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## Document object.
 ## 
-##  unique id:  ced6e952-81d5-494c-9ec8-9bc66878cc62
+##  unique id:  a1ca1153-2415-4ae6-a620-dd1490d9da7e
 ##  type:       document
 ##  fingerprint:    984 positions</code></pre>
 <p>You may, in fact, convert it to a list if you want</p>
@@ -181,11 +189,11 @@ fps_lst &lt;-<span class="st"> </span><span class="kw"><a href="reference/getter
 fps_binmat[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                                      p1 p2 p3 p4 p5
-## ced6e952-81d5-494c-9ec8-9bc66878cc62  .  .  .  .  .
-## 0a09a28f-fc26-4bd2-968e-ac06648ec814  .  .  .  .  .
-## c2131518-fe3f-46dd-939f-3d824e06cba8  .  .  .  .  .
-## aeb6e3ce-c9e5-4e74-9211-a7ee187714fb  .  .  .  1  .
-## 07d859fe-6e33-40ad-99ad-3c80f75907e4  1  1  1  1  .</code></pre>
+## a1ca1153-2415-4ae6-a620-dd1490d9da7e  .  .  .  .  .
+## 506a77ee-f45f-415d-9bcf-7d41ffbdad03  .  .  .  .  .
+## 2aea47d8-f382-49b7-be82-ce1e6240c626  .  .  .  .  .
+## 3118b771-8337-44db-bc5b-5496ba4bf783  .  .  .  1  .
+## 2d7b4f84-0923-4e51-8e5a-dca2f3e030f6  1  1  1  1  .</code></pre>
 <p>This representation is especially useful if you want to compare a bunch of fingerprints to another fingerprint. For example: we want to compare all company descriptions to the fingerprint of the term ‘software’, ‘finance’, and ‘food’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fingerprint terms</span>
 trm_soft &lt;-<span class="st"> </span><span class="kw"><a href="reference/do_fingerprint_term.html">do_fingerprint_term</a></span>(<span class="st">"software"</span>)
@@ -365,6 +373,20 @@ clust &lt;-<span class="st"> </span><span class="kw">hclust</span>(x)
 </div>
 
   
-
-  </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    
+    apiKey: '2c7c3668ebc74633f343b0e66a6a8593',
+    indexName: 'sfutils',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

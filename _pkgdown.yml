@@ -1,6 +1,15 @@
 template:
   params:
     bootswatch: cosmo
+    docsearch:
+      api_key: 2c7c3668ebc74633f343b0e66a6a8593
+      index_name: sfutils
+
+url: https://jasperhg90.github.io/sfutils
+
+authors:
+  Jasper Ginn:
+    href: http://linkedin.com/in/jasperginn/
 
 navbar:
   title: "sfutils"
