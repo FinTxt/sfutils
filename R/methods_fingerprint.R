@@ -239,9 +239,26 @@ setMethod("do_compare",
           "Fingerprint",
           function(x, y, method=c("cosine", "jaccard", "dice",
                                   "gilbertwells", "dennis", "sorgenfrei",
-                                  "lancewilliams", "euclid", "hamming")) {
+                                  "lancewilliams", "euclid", "hamming", "other"),
+                   ...) {
 
             method <- match.arg(method)
+
+            # If method == 'other', check optional arguments
+            if(method == "other") {
+
+              opts <- list(...)
+
+              if("func" != names(opts)) {
+
+                stop("You specified 'other' as method but did not supply a function. Pass your own similarity/distance
+                     function using the parameter 'func = <YOURFUNCTION>'")
+
+              }
+
+              otherFunc <- opts$func
+
+            }
 
             # Create positions
             pos1 <- rep(0, 16384)
@@ -262,7 +279,8 @@ setMethod("do_compare",
               sorgenfrei = sorgenfrei_similarity_util(pos1, pos2),
               lancewilliams = lancewilliams_distance_util(pos1, pos2),
               euclid = euclid_distance_util(pos1, pos2),
-              hamming = hamming_distance_util(pos1, pos2)
+              hamming = hamming_distance_util(pos1, pos2),
+              other = otherFunc(pos1, pos2)
             )
 
           })

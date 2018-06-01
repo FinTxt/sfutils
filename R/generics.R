@@ -139,7 +139,8 @@ setGeneric("do_slice_document", function(object, ...) {
 #'
 #' @param x either an object of class Filter, Expression, Term or Document or an object of class 'cdgMatrix' for which you want to calculate similarities. This matrix can be obtained by calling 'as.matrix()' on a Collection class.
 #' @param y reference fingerprint. Can be: a Filter, Expression, Term or Document class
-#' @param method one of the following: "cosine", "jaccard", "dice", "gilbertwells", "dennis", "sorgenfrei" (similarity) or "lancewilliams", "euclid", "hamming" (distance)
+#' @param method one of the following: "cosine", "jaccard", "dice", "gilbertwells", "dennis", "sorgenfrei" (similarity) or "lancewilliams", "euclid", "hamming" (distance). Note: if you choose 'other', you must pass an additional parameter 'func' with the comparison function of your choice.
+#' @param ... you can pass your own comparison method. Use 'func = function(x, y) { YOURFUNCTION }'
 #'
 #' @return similarity or distance metric between two fingerprints or a matrix of length n of similarity/distance metrics between documents and reference fingerprint
 #'
@@ -183,7 +184,8 @@ setGeneric("do_slice_document", function(object, ...) {
 setGeneric("do_compare", function(x,y, method=c("cosine", "jaccard", "dice",
                                                 "gilbertwells", "dennis",
                                                 "sorgenfrei", "lancewilliams",
-                                                "euclid", "hamming")) {
+                                                "euclid", "hamming", "other"),
+                                  ...) {
 
   standardGeneric("do_compare")
 

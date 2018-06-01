@@ -11,9 +11,27 @@
 setMethod("do_compare", "dgCMatrix",
           function(x, y, method=c("cosine", "jaccard", "dice",
                                   "gilbertwells", "dennis", "sorgenfrei",
-                                  "lancewilliams", "euclid", "hamming")) {
+                                  "lancewilliams", "euclid", "hamming", "other"),
+                   ...) {
 
             method <- match.arg(method)
+
+            # If method == 'other', check optional arguments
+            if(method == "other") {
+
+              opts <- list(...)
+
+              if("func" != names(opts)) {
+
+                stop("You specified 'other' as method but did not supply a function. Pass your own similarity/distance
+function using the parameter 'func = <YOURFUNCTION>'")
+
+              }
+
+              otherFunc <- opts$func
+              # Test
+
+            }
 
             # Get fingerprint from reference
             fp_ref <- rep(0, 16384)
@@ -30,7 +48,8 @@ setMethod("do_compare", "dgCMatrix",
               sorgenfrei = apply(x, 1, sorgenfrei_similarity_util, fp_ref),
               lancewilliams = apply(x, 1, lancewilliams_distance_util, fp_ref),
               euclid = apply(x, 1, euclid_distance_util, fp_ref),
-              hamming = apply(x, 1, hamming_distance_util, fp_ref)
+              hamming = apply(x, 1, hamming_distance_util, fp_ref),
+              other = apply(x, 1, otherFunc, fp_ref)
             )
 
             # To matrix

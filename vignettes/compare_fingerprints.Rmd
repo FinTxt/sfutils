@@ -143,3 +143,33 @@ get_most_similar_articles(fps_train[[45]])
 ```
 
 We can use several methods to perform classification of the documents. Cortical claims that a cosine similarity of 0.3 between two documents or a document and a filter is sufficient to classify two texts. This is a transparent and computationally efficient way to classify documents since the cosine similarity metric is easy to understand. It does, however, take some tinkering to get the filter 'right'. One could also create multiple filters and compare the documents against those to improve the accuracy of predictions.
+
+## Passing your own methods
+
+You can pass your own distance or similarity methods to `do_compare()`. THis section explains how to do this.
+
+```{r}
+dispersion <- function(x, y) {
+  
+  # Where both x and y are 1
+  a <- crossprod(x, y)
+
+  # Where x is 0 and y is 1
+  b <- crossprod(!x, y)
+
+  # Where x is 1 and y is 0
+  c <- crossprod(x, !y)
+
+  # Where both are 0
+  d <- crossprod(!x, !y)
+
+  # Return dispersion similarity
+  (a*d - b*c) / (a+b+c+d)^2
+  
+}
+
+do_compare(col_train[[1]], filt, method = "other", func = dispersion)
+
+cmp <- do_compare(mtrain, filt, method = "jaccard")
+cmp <- cbind(cmp, as.character(train_lbls_b))
+```
