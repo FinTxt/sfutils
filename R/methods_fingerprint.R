@@ -85,14 +85,18 @@ setMethod("plot",
             })
 
             if(!is.null(y)) {
+              #browser()
+              overlap <- length(intersect(fp, y))
               # Where value present, add to data
               fill_values[fp] <- fill_values[fp] + 1
               fill_values[yp] <- fill_values[yp] + 1
               # Print overlap message
-              msg <- paste(
-                "Fingerprints share", round((sum(fill_values == 2))/(sum(fill_values != 0)),
+              msg <- paste0(
+                "Fingerprints share ", round((sum(fill_values == 2))/(sum(fill_values != 0)),
                                             digits = 4) * 100,
-                "percent overlap"
+                "% overlap\n\n",
+                "Overlapping left: ", round(overlap / length(fp), digits = 4) * 100, "%\n",
+                "Overlapping right: ", round(overlap / length(y), digits = 4) * 100, "%"
               )
               cat(msg)
             } else {
