@@ -18,6 +18,10 @@
 #'
 #' @seealso \href{http://documentation.cortical.io/the_power_of_expressions.html}{This} page for more information about contexts and expressions
 #'
+#' @param startIndex ContextId from which to start
+#' @param maxResults Maximum number of contexts to be returned
+#' @param sparsity What sparsity should be applied? e.g. 0.02 returns top 2% of fingerprints
+#'
 #' @importFrom jsonlite toJSON
 #'
 #' @examples
@@ -68,7 +72,10 @@
 
 setMethod("get_context",
           "Expression",
-          function(object) {
+          function(object,
+                   startIndex = 0L,
+                   maxResults = 10L,
+                   sparsity = 1.0) {
 
             # Get key
             key <- Sys.getenv("CORTICAL_API_KEY")
@@ -88,7 +95,9 @@ setMethod("get_context",
             res <- conn$getContextsForExpression(
               body_json,
               getFingerprint = TRUE,
-              maxResults = 10L
+              startIndex = startIndex,
+              maxResults = maxResults,
+              sparsity = sparsity
             )
 
             # Unlist
