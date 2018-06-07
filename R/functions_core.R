@@ -170,3 +170,32 @@ do_fingerprint_expression <- function(x) {
   return(res_exp)
 
 }
+
+#' Retrieve all available retinas from the Cortical server
+#'
+#' @return Named list with retina name, description, number of terms, number of rows and columns.
+#'
+#' @seealso See the \href{http://www.cortical.io/resources_apidocumentation.html}{Cortical documentation} for more information about the retinas.
+#'
+#' @importFrom httr GET
+#' @importFrom httr content
+#' @export
+
+get_retinas <- function() {
+
+  # Send request
+  req <- httr::GET(paste0(Sys.getenv("CORTICAL_SERVER"), "/retinas"))
+
+  # Unpack
+  resp <- httr::content(req)
+
+  # Take names
+  nams <- vapply(resp, function(x) x$retinaName, "string")
+
+  # Apply names
+  names(resp) <- nams
+
+  # Return
+  resp
+
+}

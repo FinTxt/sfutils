@@ -265,4 +265,3 @@ fingerprint_multiple_expressions <- function(expression_list) {
   res_pos
 
 }
-
