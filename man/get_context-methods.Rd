@@ -13,12 +13,19 @@ get_context(object, ...)
 
 \S4method{get_context}{Collection}(object)
 
-\S4method{get_context}{Expression}(object)
+\S4method{get_context}{Expression}(object, startIndex = 0L,
+  maxResults = 10L, sparsity = 1)
 
 \S4method{get_context}{Term}(object)
 }
 \arguments{
 \item{object}{Either: a single Term or Expression class object OR a Collection containing Term or Expression class objects}
+
+\item{startIndex}{ContextId from which to start}
+
+\item{maxResults}{Maximum number of contexts to be returned}
+
+\item{sparsity}{What sparsity should be applied? e.g. 0.02 returns top 2% of fingerprints}
 }
 \value{
 list containing different contexts

@@ -9,21 +9,24 @@
 \title{Similarity/Distance between fingerprints}
 \usage{
 do_compare(x, y, method = c("cosine", "jaccard", "dice", "gilbertwells",
-  "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming"))
+  "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming", "other"), ...)
 
 \S4method{do_compare}{Fingerprint}(x, y, method = c("cosine", "jaccard",
   "dice", "gilbertwells", "dennis", "sorgenfrei", "lancewilliams", "euclid",
-  "hamming"))
+  "hamming", "other"), ...)
 
 \S4method{do_compare}{dgCMatrix}(x, y, method = c("cosine", "jaccard", "dice",
-  "gilbertwells", "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming"))
+  "gilbertwells", "dennis", "sorgenfrei", "lancewilliams", "euclid", "hamming",
+  "other"), ...)
 }
 \arguments{
 \item{x}{either an object of class Filter, Expression, Term or Document or an object of class 'cdgMatrix' for which you want to calculate similarities. This matrix can be obtained by calling 'as.matrix()' on a Collection class.}
 
 \item{y}{reference fingerprint. Can be: a Filter, Expression, Term or Document class}
 
-\item{method}{one of the following: "cosine", "jaccard", "dice", "gilbertwells", "dennis", "sorgenfrei" (similarity) or "lancewilliams", "euclid", "hamming" (distance)}
+\item{method}{one of the following: "cosine", "jaccard", "dice", "gilbertwells", "dennis", "sorgenfrei" (similarity) or "lancewilliams", "euclid", "hamming" (distance). Note: if you choose 'other', you must pass an additional parameter 'func' with the comparison function of your choice.}
+
+\item{...}{you can pass your own comparison method. Use 'func = function(x, y) { YOURFUNCTION }'}
 }
 \value{
 similarity or distance metric between two fingerprints or a matrix of length n of similarity/distance metrics between documents and reference fingerprint
